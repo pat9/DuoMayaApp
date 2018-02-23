@@ -100,7 +100,7 @@
             android:layout_centerHorizontal="true"
             android:layout_marginBottom="30dp"
             android:background="@drawable/ripplegroud"
-            android:text="Iniciar como invitado"
+            android:text="Registarse"
             android:textColor="#ffffff"
 
             />
