@@ -14,6 +14,7 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
 
         Button BtnLogin=(Button) findViewById(R.id.btnLogin);
+        Button BtnRestroUsu=(Button) findViewById(R.id.btnRegistro);
 
         BtnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -22,6 +23,18 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
+        BtnRestroUsu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AbrirActivityRegistro();
+            }
+        });
+
+    }
+
+    private void AbrirActivityRegistro() {
+        Intent intent= new Intent(LoginActivity.this,RegistroActivity.class);
+        startActivity(intent);
     }
 
     private void AbrirActivityLogin() {

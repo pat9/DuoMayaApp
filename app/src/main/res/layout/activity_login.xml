@@ -93,7 +93,7 @@
         >
 
         <Button
-            android:id="@+id/EdtUsuario"
+            android:id="@+id/btnRegistro"
             android:layout_width="280dp"
             android:layout_height="wrap_content"
             android:layout_above="@+id/btnLogin"
@@ -109,10 +109,10 @@
             android:id="@+id/btnLogin"
             android:layout_width="280dp"
             android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/EdtUsuario"
+            android:layout_alignLeft="@+id/btnRegistro"
             android:layout_alignParentBottom="true"
-            android:layout_alignStart="@+id/EdtUsuario"
-            android:layout_marginBottom="80dp"
+            android:layout_alignStart="@+id/btnRegistro"
+            android:layout_marginBottom="82dp"
             android:background="@drawable/ripplegroud"
             android:text="Iniciar Seión"
             android:textColor="#ffffff" />
