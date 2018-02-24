@@ -38,24 +38,30 @@
         >
 
         <EditText
-            android:hint="Usuario"
-            android:drawableRight="@drawable/ic_person"
+            android:id="@+id/txtUsuario"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:drawableRight="@drawable/ic_person"
+            android:hint="Usuario"
+            android:singleLine="true" />
+
         <EditText
-            android:hint="Contraseña"
+            android:id="@+id/txtPassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:drawableRight="@drawable/ic_vpn_key"
-            />
+            android:hint="Contraseña"
+            android:inputType="textPassword"
+            android:singleLine="true" />
+
         <Button
-            android:layout_marginTop="18dp"
+            android:id="@+id/btnEntrar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="18dp"
             android:background="@drawable/loginbtnshape"
-            android:text="Ingresar"
             android:fontFamily="@font/open_sans"
-            />
+            android:text="Ingresar" />
 
     </LinearLayout>
 
