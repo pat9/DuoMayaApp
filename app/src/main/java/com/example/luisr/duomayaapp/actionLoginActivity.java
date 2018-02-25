@@ -1,5 +1,6 @@
 package com.example.luisr.duomayaapp;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -55,6 +56,8 @@ public class actionLoginActivity extends AppCompatActivity implements descargarD
             }
             else {
                 Toast.makeText(this, "Bienvenido " + Objeto.getString("NickName"), Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(actionLoginActivity.this,InicioActivity.class);
+                startActivity(intent);
             }
 
         } catch (JSONException e) {

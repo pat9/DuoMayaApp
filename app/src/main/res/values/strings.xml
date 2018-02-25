@@ -1,3 +1,4 @@
 <resources>
-    <string name="app_name">DuoMayaApp</string>
+    <string name="app_name">DuoMaya</string>
+    <string name="MisEstilosActionBar">Duo Maya</string>
 </resources>

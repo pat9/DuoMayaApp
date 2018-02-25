@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+    <item
+        android:id="@+id/IdNav_casa"
+        android:icon="@drawable/ic_account_circle"
+        android:title="Perfil"
+        />
+
+    <item
+        android:id="@+id/IdNav_Diccioanrio"
+        android:icon="@drawable/ic_book"
+        android:title="Diccionario"
+        />
+    <item
+        android:id="@+id/IdNav_Juego"
+        android:icon="@drawable/ic_videogame"
+        android:title="Juegos"
+        />
+    <item
+        android:id="@+id/IdNav_Cultura"
+        android:icon="@drawable/ic_map"
+        android:title="Cultura"
+        />
+    <item
+        android:id="@+id/IdNav_Info"
+        android:icon="@drawable/ic_info"
+        android:title="Info"
+        />
+
+</menu>
