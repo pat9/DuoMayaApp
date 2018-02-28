@@ -15,7 +15,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
-
             >
 
 
@@ -89,7 +88,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:elevation="27dp"
+        android:elevation="45dp"
         >
 
         <Button
@@ -102,6 +101,8 @@
             android:background="@drawable/ripplegroud"
             android:text="Registarse"
             android:textColor="#ffffff"
+            android:elevation="45dp"
+            android:onClick="dummyClick"
 
             />
 
@@ -112,7 +113,9 @@
             android:layout_alignLeft="@+id/btnRegistro"
             android:layout_alignParentBottom="true"
             android:layout_alignStart="@+id/btnRegistro"
+            android:elevation="45dp"
             android:layout_marginBottom="82dp"
+            android:onClick="dummyClick"
             android:background="@drawable/ripplegroud"
             android:text="Iniciar Seión"
             android:textColor="#ffffff" />

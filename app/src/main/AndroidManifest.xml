@@ -23,7 +23,8 @@
             android:resource="@array/preloaded_fonts" />
 
         <activity android:name=".actionLoginActivity" />
-        <activity android:name=".RegistroActivity"></activity>
+        <activity android:name=".RegistroActivity" />
+        <activity android:name=".InicioActivity" android:theme="@style/MisEstilosActionBar" android:label="@string/MisEstilosActionBar"></activity>
     </application>
 
 </manifest>

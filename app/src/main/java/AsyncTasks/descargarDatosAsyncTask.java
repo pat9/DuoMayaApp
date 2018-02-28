@@ -22,8 +22,6 @@ import java.nio.charset.Charset;
 
 public class descargarDatosAsyncTask extends AsyncTask<URL, Void, String>{
     public interfacedelhilo delegado;
-    public Context context;
-    ProgressDialog pd;
     public interface interfacedelhilo
     {
         void datosDescagados(String Datos);
@@ -32,10 +30,6 @@ public class descargarDatosAsyncTask extends AsyncTask<URL, Void, String>{
     @Override
     protected String doInBackground(URL... urls) {
         String Datos = "";
-        pd= new ProgressDialog(context);
-        pd.setTitle("Logueando mens");
-        pd.setMessage("Espera...");
-        pd.show();
         try {
             Datos = descargardatos(urls[0]);
         }
@@ -49,14 +43,6 @@ public class descargarDatosAsyncTask extends AsyncTask<URL, Void, String>{
     protected void onPostExecute(String s)
     {
         super.onPostExecute(s);
-        Handler hand = new Handler();
-        hand.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                pd.dismiss();
-            }
-        },100);
-
         Log.d("Verifica", s);
         delegado.datosDescagados(s);
     }
