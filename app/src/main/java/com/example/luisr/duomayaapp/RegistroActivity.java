@@ -1,5 +1,9 @@
 package com.example.luisr.duomayaapp;
 
+import android.Manifest;
+import android.content.pm.PackageManager;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -18,12 +22,12 @@ public class RegistroActivity extends AppCompatActivity implements descargarDato
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registro);
+        PermisoCamara();
         txtPassword = findViewById(R.id.txtPassword);
         txtApellido = findViewById(R.id.txtApellido);
         txtEmail = findViewById(R.id.txtEmail);
         txtNombre = findViewById(R.id.txtNombre);
         txtUsuario = findViewById(R.id.txtUsuario);
-
         btnEntrar = findViewById(R.id.btnEntrar);
         btnEntrar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -41,12 +45,28 @@ public class RegistroActivity extends AppCompatActivity implements descargarDato
 
 
     }
+    public void PermisoCamara()
+    {
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA)!= PackageManager.PERMISSION_GRANTED) {
+            // Should we show an explanation?
+            if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.CAMERA)) {
+                // Show an expanation to the user *asynchronously* -- don't block
+                // this thread waiting for the user's response! After the user
+                // sees the explanation, try again to request the permission.
+            } else {
+                // No se necesita dar una explicación al usuario, sólo pedimos el permiso.
+                ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.CAMERA}, 0);
+                // MY_PERMISSIONS_REQUEST_CAMARA es una constante definida en la app. El método callback obtiene el resultado de la petición.
+            }
+        }
+    }
+
 
     @Override
     public void datosDescagados(String Datos) {
         if(Integer.parseInt(Datos) == 1)
         {
-            Toast.makeText(this,     "Registro completo", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this,"Registro completo", Toast.LENGTH_SHORT).show();
         }
         else
         {

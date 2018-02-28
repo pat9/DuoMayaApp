@@ -1,5 +1,6 @@
 package com.example.luisr.duomayaapp;
 
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -18,6 +19,7 @@ import AsyncTasks.descargarDatosAsyncTask;
 public class actionLoginActivity extends AppCompatActivity implements descargarDatosAsyncTask.interfacedelhilo {
     EditText txtUsuario, txtPassword;
     Button btnEntrar;
+    boolean Bandera =  true;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,24 +32,34 @@ public class actionLoginActivity extends AppCompatActivity implements descargarD
         btnEntrar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                descargarDatosAsyncTask obj = new descargarDatosAsyncTask();
-                obj.delegado = actionLoginActivity.this;
-                try
-                {
-                    obj.execute(new URL("http://aprendermayaws.gear.host/AprenderMayaWS.asmx/Login?Usuario="+txtUsuario.getText().toString()+"&Password="+txtPassword.getText().toString()));
-                } catch (MalformedURLException e) {
-                    e.printStackTrace();
-                }
+                IniciarSesion();
+
             }
         });
 
 
     }
 
+    public void IniciarSesion()
+    {
+        descargarDatosAsyncTask obj = new descargarDatosAsyncTask();
+        obj.context = getBaseContext();
+        obj.delegado = actionLoginActivity.this;
+        try
+        {
+            obj.execute(new URL("http://aprendermayaws.gear.host/AprenderMayaWS.asmx/Login?Usuario="+txtUsuario.getText().toString()+"&Password="+txtPassword.getText().toString()));
+
+
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+    }
+
     @Override
     public void datosDescagados(String Datos) {
         try
         {
+            Bandera= false;
             JSONObject Objeto = new JSONObject(Datos);
             if(Objeto.getString("NickName") == "null" )
             {

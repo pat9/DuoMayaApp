@@ -1,7 +1,12 @@
 package AsyncTasks;
 
+import android.app.ProgressDialog;
+import android.content.Context;
 import android.os.AsyncTask;
+import android.os.Handler;
 import android.util.Log;
+
+import com.example.luisr.duomayaapp.actionLoginActivity;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -17,7 +22,8 @@ import java.nio.charset.Charset;
 
 public class descargarDatosAsyncTask extends AsyncTask<URL, Void, String>{
     public interfacedelhilo delegado;
-
+    public Context context;
+    ProgressDialog pd;
     public interface interfacedelhilo
     {
         void datosDescagados(String Datos);
@@ -26,6 +32,10 @@ public class descargarDatosAsyncTask extends AsyncTask<URL, Void, String>{
     @Override
     protected String doInBackground(URL... urls) {
         String Datos = "";
+        pd= new ProgressDialog(context);
+        pd.setTitle("Logueando mens");
+        pd.setMessage("Espera...");
+        pd.show();
         try {
             Datos = descargardatos(urls[0]);
         }
@@ -39,6 +49,14 @@ public class descargarDatosAsyncTask extends AsyncTask<URL, Void, String>{
     protected void onPostExecute(String s)
     {
         super.onPostExecute(s);
+        Handler hand = new Handler();
+        hand.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                pd.dismiss();
+            }
+        },100);
+
         Log.d("Verifica", s);
         delegado.datosDescagados(s);
     }
