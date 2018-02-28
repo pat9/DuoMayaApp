@@ -1,15 +1,90 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent" android:layout_height="match_parent"
-    android:background="@android:color/holo_green_light"
-    >
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@android:color/white"
+    android:orientation="vertical">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Perfil"
-        android:textSize="45sp"
-        android:layout_centerInParent="true"
 
-        />
-</RelativeLayout>
+  <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="300dp"
+      android:orientation="vertical"
+      android:background="@drawable/background_gradient"
+      android:padding="20dp"
+
+      >
+
+      <LinearLayout
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:orientation="vertical"
+          android:gravity="center_horizontal"
+          >
+
+          <TextView
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_alignParentBottom="true"
+              android:layout_centerHorizontal="true"
+              android:text="Jose Miguel"
+              android:textColor="@android:color/white"
+              android:textSize="20dp"
+              android:textStyle="bold" />
+
+          <RelativeLayout
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content">
+
+              <ImageView
+                  android:id="@+id/imgperfil"
+                  android:layout_width="140dp"
+                  android:layout_height="140dp"
+                  android:layout_marginTop="5dp"
+                  android:background="?android:attr/selectableItemBackground"
+                  android:src="@drawable/ic_account_circle"
+
+                  />
+
+              <ImageView
+                  android:layout_width="45dp"
+                  android:layout_height="45dp"
+                  android:layout_alignParentLeft="true"
+                  android:layout_alignParentStart="true"
+                  android:layout_alignTop="@+id/imgperfil"
+                  android:src="@drawable/ic_add_a_photo" />
+          </RelativeLayout>
+
+
+          <TextView
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:textColor="@android:color/white"
+              android:textSize="15dp"
+              android:text="Puntaje para  el siguiente nivel"
+
+              />
+
+          <ProgressBar
+              android:layout_marginTop="20dp"
+              android:id="@+id/progressBar"
+              style="?android:attr/progressBarStyleHorizontal"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:progress="45"
+              android:progressBackgroundTintMode="@android:color/white"
+              android:progressTint="@android:color/background_light"
+              android:progressDrawable="@color/colorPrimary"
+              />
+
+      </LinearLayout>
+
+
+
+
+  </LinearLayout>
+
+
+
+</LinearLayout>

@@ -42,4 +42,9 @@ public class LoginActivity extends AppCompatActivity {
         Intent intent= new Intent(LoginActivity.this,actionLoginActivity.class);
         startActivity(intent);
     }
+
+    public void dummyClick(View view){
+
+
+    }
 }

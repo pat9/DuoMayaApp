@@ -12,6 +12,7 @@
     </style>
 
     <style name="MisEstilosActionBar" parent="Theme.AppCompat.Light">
+                
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
@@ -19,6 +20,10 @@
 
 
 
+    </style>
+
+    <style name="EstiloBar" parent="AppTheme" >
+        <item name="colorPrimary">@android:color/holo_blue_light</item>
     </style>
 
 </resources>

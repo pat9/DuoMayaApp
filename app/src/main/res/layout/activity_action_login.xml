@@ -1,79 +1,97 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fillViewport="true"
     tools:context="com.example.luisr.duomayaapp.actionLoginActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        >
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:background="@drawable/background_gradient"
-            />
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            />
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/LayoutInput"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:orientation="vertical"
-        android:padding="15dp"
-        android:background="#fff"
         >
 
-        <EditText
-            android:id="@+id/txtUsuario"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:drawableRight="@drawable/ic_person"
-            android:hint="Usuario"
-            android:singleLine="true" />
+            android:layout_height="match_parent"
+            >
 
-        <EditText
-            android:id="@+id/txtPassword"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:drawableRight="@drawable/ic_vpn_key"
-            android:hint="Contraseña"
-            android:inputType="textPassword"
-            android:singleLine="true" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                >
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/background_gradient"
+                    />
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    />
 
-        <Button
-            android:id="@+id/btnEntrar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="18dp"
-            android:background="@drawable/loginbtnshape"
-            android:fontFamily="@font/open_sans"
-            android:text="Ingresar" />
 
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/LayoutInput"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:orientation="vertical"
+                android:padding="15dp"
+                android:background="#fff"
+                >
+
+                <EditText
+                    android:id="@+id/txtUsuario"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawableRight="@drawable/ic_person"
+                    android:hint="Usuario"
+                    android:singleLine="true" />
+
+                <EditText
+                    android:id="@+id/txtPassword"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawableRight="@drawable/ic_vpn_key"
+                    android:hint="Contraseña"
+                    android:inputType="textPassword"
+                    android:singleLine="true" />
+
+                <Button
+                    android:id="@+id/btnEntrar"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="18dp"
+                    android:background="@drawable/ripplegroud"
+                    android:fontFamily="@font/open_sans"
+                    android:text="Ingresar" />
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_above="@id/LayoutInput"
+                android:layout_centerHorizontal="true"
+                android:text="DUO MAYA"
+                android:textColor="@android:color/background_light"
+                android:textSize="35sp"
+                android:layout_marginBottom="12dp"
+                />
+        </RelativeLayout>
     </LinearLayout>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@id/LayoutInput"
-        android:layout_centerHorizontal="true"
-        android:text="DUO MAYA"
-        android:textColor="@android:color/background_light"
-        android:textSize="35sp"
-        android:layout_marginBottom="12dp"
-        />
 
-</RelativeLayout>
+
+
+</ScrollView>
