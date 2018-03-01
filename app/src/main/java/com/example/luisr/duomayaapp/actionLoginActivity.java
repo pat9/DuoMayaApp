@@ -3,6 +3,8 @@ package com.example.luisr.duomayaapp;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
@@ -16,6 +18,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 import AsyncTasks.descargarDatosAsyncTask;
+import Clases.Usuario;
 
 public class actionLoginActivity extends AppCompatActivity implements descargarDatosAsyncTask.interfacedelhilo {
     EditText txtUsuario, txtPassword;
@@ -66,8 +69,18 @@ public class actionLoginActivity extends AppCompatActivity implements descargarD
                 Toast.makeText(this, "Error en el login", Toast.LENGTH_SHORT).show();
             }
             else {
+                Usuario usuario = new Usuario();
+                usuario.Codigo = Objeto.getInt("Codigo");
+                usuario.NickName = Objeto.getString("NickName");
+                usuario.Password = Objeto.getString("Contraseña");
+                usuario.FotoPerfil = Objeto.getString("FotoPerfil");
+                usuario.Correo = Objeto.getString("Correo");
+                usuario.Nombre = Objeto.getString("Nombre");
+                usuario.Apellido = Objeto.getString("Apellido");
+                usuario.Tipo = Objeto.getInt("IDTipo");
                 Toast.makeText(this, "Bienvenido " + Objeto.getString("NickName"), Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(actionLoginActivity.this,InicioActivity.class);
+                intent.putExtra("Usuario", usuario);
                 startActivity(intent);
             }
 

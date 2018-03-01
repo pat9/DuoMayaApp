@@ -25,12 +25,17 @@ public class InicioActivity extends AppCompatActivity {
         actionBarDrawerToggle.syncState();
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        getSupportActionBar().hide();
+
         BottomNavigationView bottomNav = findViewById(R.id.Id_BottomNavigation);
         bottomNav.setOnNavigationItemSelectedListener(NavListener);
 
+        Bundle bundle = getIntent().getExtras();
+        FragmentPerfilClass fragmentPerfilClass = new FragmentPerfilClass();
+        fragmentPerfilClass.setArguments(bundle);
 
         if (savedInstanceState==null){
-            getSupportFragmentManager().beginTransaction().replace(R.id.Fragment_ContainerXML,new FragmentPerfilClass()).commit();
+            getSupportFragmentManager().beginTransaction().replace(R.id.Fragment_ContainerXML,fragmentPerfilClass).commit();
         }
 
     }
@@ -49,6 +54,8 @@ public class InicioActivity extends AppCompatActivity {
 
             android.support.v4.app.Fragment FragmentSelec=null;
 
+            Bundle bundle = getIntent().getExtras();
+
             switch (item.getItemId()){
                 case R.id.IdNav_casa:
                     FragmentSelec= new FragmentPerfilClass();
@@ -66,6 +73,7 @@ public class InicioActivity extends AppCompatActivity {
                     FragmentSelec= new FragmentDiccionarioClass();
                     break;
             }
+            FragmentSelec.setArguments(bundle);
 
             getSupportFragmentManager().beginTransaction().replace(R.id.Fragment_ContainerXML,FragmentSelec).commit();
 
