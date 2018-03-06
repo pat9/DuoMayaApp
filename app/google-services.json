@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "1011950037157",
+    "firebase_url": "https://duomayaapp.firebaseio.com",
+    "project_id": "duomayaapp",
+    "storage_bucket": "duomayaapp.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1011950037157:android:2e38da357c3a9814",
+        "android_client_info": {
+          "package_name": "com.example.luisr.duomayaapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1011950037157-7lrhcod5t55qfja59c37os6pcphv7pvn.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.luisr.duomayaapp",
+            "certificate_hash": "b7470a87122ff68765c02f389528c808d510c3c3"
+          }
+        },
+        {
+          "client_id": "1011950037157-jp16dlr61j7a1ndsfhnfhjo0tor9ferv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB4RrybmcnEd40Db3IfUUEKsE5sbBQ1vyo"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1011950037157-jp16dlr61j7a1ndsfhnfhjo0tor9ferv.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
