@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
@@ -14,6 +15,7 @@ import android.widget.TableLayout;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
+import com.squareup.picasso.Transformation;
 
 import Clases.Usuario;
 
@@ -31,13 +33,18 @@ public class FragmentPerfilClass extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_perfil,container,false);
         txtNombre = rootView.findViewById(R.id.txtNombreUsu);
         imgPerfil = rootView.findViewById(R.id.imgperfil);
+
+
         Bundle bundle = getArguments();
+
+
 
         if(bundle != null)
         {
             Usuario usuario = (Usuario)bundle.get("Usuario");
             txtNombre.setText(usuario.Nombre + " " + usuario.Apellido +" ("+usuario.NickName+")");
             Picasso.with(getActivity()).load(usuario.FotoPerfil).into(imgPerfil);
+
         }
 
 
