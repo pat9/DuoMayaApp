@@ -12,13 +12,13 @@ public class ClsArticulos {
 
     private String Titulo;
     private String Descripcion;
-    private int FotoArticulo;
+    private String FotoArticulo;
 
     public  ClsArticulos(){
 
     }
 
-    public ClsArticulos(String titulo, String descripcion, int fotoArticulo) {
+    public ClsArticulos(String titulo, String descripcion, String fotoArticulo) {
         Titulo = titulo;
         Descripcion = descripcion;
         FotoArticulo = fotoArticulo;
@@ -40,11 +40,11 @@ public class ClsArticulos {
         Descripcion = descripcion;
     }
 
-    public int getFotoArticulo() {
+    public String getFotoArticulo() {
         return FotoArticulo;
     }
 
-    public void setFotoArticulo(int fotoArticulo) {
+    public void setFotoArticulo(String fotoArticulo) {
         FotoArticulo = fotoArticulo;
     }
 }

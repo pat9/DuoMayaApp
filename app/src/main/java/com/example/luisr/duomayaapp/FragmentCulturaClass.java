@@ -1,6 +1,6 @@
 package com.example.luisr.duomayaapp;
 
-import android.graphics.Bitmap;
+
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -10,6 +10,18 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
+
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.JsonRequest;
+import com.android.volley.toolbox.Volley;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 
@@ -24,6 +36,8 @@ public class FragmentCulturaClass extends Fragment {
 
     ArrayList<ClsArticulos> listadeArticulos;
     RecyclerView recyclerView;
+    RequestQueue requestQueue;
+    AdapterArticulo adapterArticulo;
 
     @Nullable
     @Override
@@ -33,39 +47,54 @@ public class FragmentCulturaClass extends Fragment {
         listadeArticulos= new ArrayList<>();
         recyclerView = (RecyclerView) view.findViewById(R.id.idRecyclerContainer);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        recyclerView.setHasFixedSize(true);
 
-        GenerarLista();
+        requestQueue= Volley.newRequestQueue(getContext());
 
-        AdapterArticulo adapterArticulo= new AdapterArticulo(listadeArticulos);
-        recyclerView.setAdapter(adapterArticulo);
-
-        adapterArticulo.setOnclickLisener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Toast.makeText(getContext(),"Articulo se leccionado "+ listadeArticulos.get(recyclerView.getChildAdapterPosition(view)).getTitulo(),Toast.LENGTH_SHORT).show();
-            }
-        });
+        GenerarListaJson();
 
         return view;
 
     }
 
-    private void GenerarLista() {
+    private void GenerarListaJson() {
+        String URL="http://aprendermayaws.gearhostpreview.com/AprenderMayaWS.asmx/ListaPublicaciones";
 
-        listadeArticulos.add(new ClsArticulos("Juego Maya","Esta es una preba del juego maya",R.mipmap.ic_launcher_round));
-        listadeArticulos.add(new ClsArticulos("Juego Maya","Esta es una preba del juego maya",R.mipmap.ic_launcher_round));
-        listadeArticulos.add(new ClsArticulos("Juego Maya","Esta es una preba del juego maya",R.mipmap.ic_launcher_round));
-        listadeArticulos.add(new ClsArticulos("Juego Maya","Esta es una preba del juego maya",R.mipmap.ic_launcher_round));
-        listadeArticulos.add(new ClsArticulos("Juego Maya","Esta es una preba del juego maya",R.mipmap.ic_launcher_round));
-        listadeArticulos.add(new ClsArticulos("Juego Maya","Esta es una preba del juego maya",R.mipmap.ic_launcher_round));
-        listadeArticulos.add(new ClsArticulos("Juego Maya","Esta es una preba del juego maya",R.mipmap.ic_launcher_round));
-        listadeArticulos.add(new ClsArticulos("Juego Maya","Esta es una preba del juego maya",R.mipmap.ic_launcher_round));
-        listadeArticulos.add(new ClsArticulos("Juego Maya","Esta es una preba del juego maya",R.mipmap.ic_launcher_round));
-        listadeArticulos.add(new ClsArticulos("Juego Maya","Esta es una preba del juego maya",R.mipmap.ic_launcher_round));
-        listadeArticulos.add(new ClsArticulos("Juego Maya","Esta es una preba del juego maya",R.mipmap.ic_launcher_round));   listadeArticulos.add(new ClsArticulos("Juego Maya","Esta es una preba del juego maya",R.mipmap.ic_launcher_round));
-        listadeArticulos.add(new ClsArticulos("Juego Maya","Esta es una preba del juego maya",R.mipmap.ic_launcher_round));   listadeArticulos.add(new ClsArticulos("Juego Maya","Esta es una preba del juego maya",R.mipmap.ic_launcher_round));
-        listadeArticulos.add(new ClsArticulos("Juego Maya","Esta es una preba del juego maya",R.mipmap.ic_launcher_round));   listadeArticulos.add(new ClsArticulos("Juego Maya","Esta es una preba del juego maya",R.mipmap.ic_launcher_round));
+        JsonObjectRequest objectRequest = new JsonObjectRequest(Request.Method.GET, URL, null, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                try {
+                    JSONArray jsonArray= response.getJSONArray("Table");
+
+                    for (int i=0; i<jsonArray.length(); i++){
+                        JSONObject ParseoOBJ= jsonArray.getJSONObject(i);
+
+                        String Titulo= ParseoOBJ.getString("Nombre");
+                        String Descripcion= ParseoOBJ.getString("Correo");
+                        String Foto= ParseoOBJ.getString("FotoPerfil");
+
+                        listadeArticulos.add(new ClsArticulos(Titulo,Descripcion,Foto));
+
+                    }
+
+                    adapterArticulo= new AdapterArticulo(getContext(),listadeArticulos);
+                    recyclerView.setAdapter(adapterArticulo);
 
 
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                error.printStackTrace();
+
+            }
+        });
+
+        requestQueue.add(objectRequest);
     }
+
+
 }

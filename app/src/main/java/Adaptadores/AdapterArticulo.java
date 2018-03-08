@@ -1,5 +1,6 @@
 package Adaptadores;
 
+import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.luisr.duomayaapp.R;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -23,14 +25,17 @@ View.OnClickListener{
 
     ArrayList<ClsArticulos> ListaArticulos;
     private View.OnClickListener listener;
-    public AdapterArticulo(ArrayList<ClsArticulos> listaArticulos) {
+    private Context mcontext;
+
+    public AdapterArticulo(Context context, ArrayList <ClsArticulos> listaArticulos) {
+        mcontext=context;
         ListaArticulos = listaArticulos;
     }
 
     @Override
 
     public ArticuloViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view= LayoutInflater.from(parent.getContext()).inflate(R.layout.items_recycler_articulos,null,false);
+        View view= LayoutInflater.from(mcontext).inflate(R.layout.items_recycler_articulos,parent,false);
             view.setOnClickListener(this);
         return new ArticuloViewHolder(view);
     }
@@ -39,8 +44,9 @@ View.OnClickListener{
     public void onBindViewHolder(ArticuloViewHolder holder, int position) {
         holder.txtTitulo.setText(ListaArticulos.get(position).getTitulo());
         holder.txtDescripcion.setText(ListaArticulos.get(position).getDescripcion());
-        holder.ImgAticulo.setImageResource(ListaArticulos.get(position).getFotoArticulo());
-
+        Picasso.with(mcontext)
+                .load(ListaArticulos.get(position).getFotoArticulo())
+                .into(holder.ImgAticulo);
     }
 
     @Override
