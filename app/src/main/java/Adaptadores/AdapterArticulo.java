@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.luisr.duomayaapp.R;
+import com.squareup.picasso.NetworkPolicy;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -46,6 +47,7 @@ View.OnClickListener{
         holder.txtDescripcion.setText(ListaArticulos.get(position).getDescripcion());
         Picasso.with(mcontext)
                 .load(ListaArticulos.get(position).getFotoArticulo())
+                .networkPolicy(NetworkPolicy.OFFLINE)
                 .into(holder.ImgAticulo);
     }
 
