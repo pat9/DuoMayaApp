@@ -1,6 +1,10 @@
 package com.example.luisr.duomayaapp;
 
 
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
@@ -9,6 +13,14 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.widget.ImageView;
+import android.widget.Toast;
+
+import java.io.BufferedInputStream;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
+
+import static com.example.luisr.duomayaapp.FragmentPerfilClass.REQUEST_IMAGE_CAPTURE;
 
 public class InicioActivity extends AppCompatActivity {
 
@@ -74,5 +86,7 @@ public class InicioActivity extends AppCompatActivity {
             return true;
         }
     };
+
+
 
 }
