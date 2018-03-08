@@ -1,6 +1,7 @@
 package Adaptadores;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +11,7 @@ import android.widget.TextView;
 
 import com.example.luisr.duomayaapp.R;
 import com.squareup.picasso.Picasso;
+import com.squareup.picasso.Transformation;
 
 import java.util.ArrayList;
 
@@ -48,6 +50,7 @@ View.OnClickListener{
                 .load(ListaArticulos.get(position).getFotoArticulo())
                 .into(holder.ImgAticulo);
     }
+
 
     @Override
     public int getItemCount() {
