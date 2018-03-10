@@ -4,11 +4,13 @@ import android.graphics.Bitmap;
 import android.graphics.drawable.Icon;
 import android.media.Image;
 
+import java.io.Serializable;
+
 /**
  * Created by Luis Ramirez on 05/03/2018.
  */
 
-public class ClsArticulos {
+public class ClsArticulos implements Serializable {
 
     private String Titulo;
     private String Descripcion;

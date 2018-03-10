@@ -14,6 +14,7 @@ android:background="@drawable/background_gradient"
 android:foreground="?android:attr/selectableItemBackground"
 android:clickable="true">
 <RelativeLayout
+    android:id="@+id/id_relative_Item"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:orientation="vertical">

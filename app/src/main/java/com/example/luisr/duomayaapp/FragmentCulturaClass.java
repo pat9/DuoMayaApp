@@ -1,9 +1,13 @@
 package com.example.luisr.duomayaapp;
 
 
+import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -27,6 +31,7 @@ import java.util.ArrayList;
 
 import Adaptadores.AdapterArticulo;
 import Clases.ClsArticulos;
+import Interfaces.IComArticulos;
 
 /**
  * Created by LuisR on 25/02/2018.
@@ -38,6 +43,8 @@ public class FragmentCulturaClass extends Fragment {
     RecyclerView recyclerView;
     RequestQueue requestQueue;
     AdapterArticulo adapterArticulo;
+    Activity activity;
+    IComArticulos iComArticulos;
 
     @Nullable
     @Override
@@ -68,7 +75,6 @@ public class FragmentCulturaClass extends Fragment {
 
                     for (int i=0; i<jsonArray.length(); i++){
                         JSONObject ParseoOBJ= jsonArray.getJSONObject(i);
-
                         String Titulo= ParseoOBJ.getString("Nombre");
                         String Descripcion= ParseoOBJ.getString("Correo");
                         String Foto= ParseoOBJ.getString("FotoPerfil");
@@ -78,6 +84,13 @@ public class FragmentCulturaClass extends Fragment {
                     }
 
                     adapterArticulo= new AdapterArticulo(getContext(),listadeArticulos);
+
+                    adapterArticulo.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            iComArticulos.EnviarDatosArticulosDetalle(listadeArticulos.get(recyclerView.getChildAdapterPosition(view)));
+                        }
+                    });
                     recyclerView.setAdapter(adapterArticulo);
 
 
@@ -96,5 +109,13 @@ public class FragmentCulturaClass extends Fragment {
         requestQueue.add(objectRequest);
     }
 
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
 
+        if (context instanceof Activity){
+            this.activity=(Activity) context;
+            iComArticulos = (IComArticulos) context;
+        }
+    }
 }

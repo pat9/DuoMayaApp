@@ -20,12 +20,16 @@ import java.io.BufferedInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 
+import Clases.ClsArticulos;
+import Interfaces.IComArticulos;
+
 import static com.example.luisr.duomayaapp.FragmentPerfilClass.REQUEST_IMAGE_CAPTURE;
 
-public class InicioActivity extends AppCompatActivity {
+public class InicioActivity extends AppCompatActivity implements IComArticulos {
 
     private DrawerLayout drawerLayout;
     private ActionBarDrawerToggle actionBarDrawerToggle;
+    private Fragmentdetalle_cultura fragmentdetalle_cultura;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,5 +92,22 @@ public class InicioActivity extends AppCompatActivity {
     };
 
 
+    @Override
+    public void EnviarDatosArticulosDetalle(ClsArticulos clsArticulos) {
+        fragmentdetalle_cultura = new Fragmentdetalle_cultura();
 
+        //Enviamos el Objeto Mediante un Bundle  para poder cacharlo en el  fragment de destino
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("Objeto",clsArticulos);
+        fragmentdetalle_cultura.setArguments(bundle);
+
+        //Cargamos el Fragment
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.Fragment_ContainerXML,fragmentdetalle_cultura).addToBackStack(null).commit();
+
+
+
+
+    }
 }

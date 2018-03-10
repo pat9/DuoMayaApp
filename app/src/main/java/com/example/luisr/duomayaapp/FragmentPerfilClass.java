@@ -108,6 +108,8 @@ public class FragmentPerfilClass extends Fragment {
         }
     }
 
+
+
     private static final  int SELECT_FILE  =1;
     protected void SelectGaleria()
     {
