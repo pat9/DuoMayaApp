@@ -7,12 +7,15 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
+import android.os.StrictMode;
 import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,11 +25,24 @@ import android.widget.TableLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.cloudinary.Cloudinary;
+import com.cloudinary.android.MediaManager;
+import com.cloudinary.android.UploadRequest;
+import com.cloudinary.android.callback.ErrorInfo;
+import com.cloudinary.android.callback.UploadCallback;
+import com.cloudinary.utils.ObjectUtils;
 import com.squareup.picasso.Picasso;
 
 import java.io.BufferedInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.InputStream;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.HashMap;
+import java.util.Map;
 
 import Clases.Usuario;
 
@@ -42,6 +58,11 @@ public class FragmentPerfilClass extends Fragment {
     ImageView imgPerfil, btnFoto;
     View rootView;
     String Accion = "";
+
+    private final String ruta_fotos = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES) + "/DuoMaya/";
+
+    private File file = new File(ruta_fotos);
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -102,12 +123,25 @@ public class FragmentPerfilClass extends Fragment {
     static final int REQUEST_IMAGE_CAPTURE = 1;
 
     private void dispatchTakePictureIntent() {
+        StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
+        StrictMode.setVmPolicy(builder.build());
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         if (takePictureIntent.resolveActivity(getActivity().getPackageManager()) != null) {
+            Uri uriSavedImage=Uri.fromFile(new File(ruta_fotos+getCode()+".png"));
+            takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, uriSavedImage);
             startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
         }
     }
 
+
+    private String getCode()
+    {
+        Calendar c = Calendar.getInstance();
+        SimpleDateFormat df = new SimpleDateFormat("yyyyMMddHHmmss");
+        String formattedDate = df.format(c.getTime());
+        return formattedDate;
+
+    }
 
 
     private static final  int SELECT_FILE  =1;
@@ -125,10 +159,45 @@ public class FragmentPerfilClass extends Fragment {
     {
         if (requestcode == REQUEST_IMAGE_CAPTURE && resultcode == RESULT_OK && Accion =="CAMARA") {
             Bundle extras = data.getExtras();
+            
             if(extras != null)
             {
                 Bitmap imageBitmap = (Bitmap) extras.get("data");
+                Uri img = (Uri)extras.get(MediaStore.EXTRA_OUTPUT);
+                Toast.makeText(getActivity(), img.toString(), Toast.LENGTH_SHORT).show();
                 imgPerfil.setImageBitmap(imageBitmap);
+                ByteArrayOutputStream stream = new ByteArrayOutputStream(imageBitmap.getByteCount());
+                imageBitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
+                byte[] bytes = stream.toByteArray();
+                String RequestID = MediaManager.get().upload(img).callback(new UploadCallback() {
+                    @Override
+                    public void onStart(String requestId) {
+
+                    }
+
+                    @Override
+                    public void onProgress(String requestId, long bytes, long totalBytes) {
+
+                    }
+
+                    @Override
+                    public void onSuccess(String requestId, Map resultData) {
+                        String URLRESULTADO =  resultData.get("url").toString();
+                        Toast.makeText(getActivity(), URLRESULTADO, Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override
+                    public void onError(String requestId, ErrorInfo error) {
+                        Toast.makeText(getActivity(), "Error", Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override
+                    public void onReschedule(String requestId, ErrorInfo error) {
+
+                    }
+                }).dispatch();
+                //Log.d("URL", MediaManager.get().url().generate());
+                Log.d("Resultado", RequestID.toString());
             }
         }
         else
@@ -143,6 +212,33 @@ public class FragmentPerfilClass extends Fragment {
                     is = getActivity().getContentResolver().openInputStream(selectedImage);
                     BufferedInputStream bis = new BufferedInputStream(is);
                     Bitmap bitmap = BitmapFactory.decodeStream(bis);
+                    String resID = MediaManager.get().upload(selectedImage).callback(new UploadCallback() {
+                        @Override
+                        public void onStart(String requestId) {
+
+                        }
+
+                        @Override
+                        public void onProgress(String requestId, long bytes, long totalBytes) {
+
+                        }
+
+                        @Override
+                        public void onSuccess(String requestId, Map resultData) {
+                            Log.d("Resultado", resultData.get("url").toString());
+                        }
+
+                        @Override
+                        public void onError(String requestId, ErrorInfo error) {
+
+                        }
+
+                        @Override
+                        public void onReschedule(String requestId, ErrorInfo error) {
+
+                        }
+                    }).dispatch();
+                    Log.d("Resultado", resID);
                     imgPerfil.setImageBitmap(bitmap);
 
                 } catch (FileNotFoundException e) {

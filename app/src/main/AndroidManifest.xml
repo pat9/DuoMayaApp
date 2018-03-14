@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.luisr.duomayaapp">
+
     <uses-permission android:name="android.permission.INTERNET"></uses-permission>
     <uses-permission android:name="android.permission.CAMERA"></uses-permission>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"></uses-permission>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"></uses-permission>
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -22,7 +25,13 @@
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
 
-        <activity android:name=".actionLoginActivity" />
+        <meta-data
+            android:name="CLOUDINARY_URL"
+            android:value="cloudinary://481118882942431:ZiGf8m8U772_wHl-Oa0VMvymB4o@pat9"
+            />
+
+        <activity android:name=".actionLoginActivity"
+            android:windowSoftInputMode="adjustResize"/>
         <activity android:name=".RegistroActivity" />
         <activity android:name=".InicioActivity" android:theme="@style/MisEstilosActionBar" android:label="@string/MisEstilosActionBar"></activity>
     </application>
