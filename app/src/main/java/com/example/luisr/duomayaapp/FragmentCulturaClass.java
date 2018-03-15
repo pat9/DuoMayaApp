@@ -3,6 +3,7 @@ package com.example.luisr.duomayaapp;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -46,6 +47,12 @@ public class FragmentCulturaClass extends Fragment {
     Activity activity;
     IComArticulos iComArticulos;
 
+    //Variables
+
+    String Titulo;
+    String Descripcion;
+    String Foto;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -69,15 +76,15 @@ public class FragmentCulturaClass extends Fragment {
 
         JsonObjectRequest objectRequest = new JsonObjectRequest(Request.Method.GET, URL, null, new Response.Listener<JSONObject>() {
             @Override
-            public void onResponse(JSONObject response) {
+            public void onResponse(final JSONObject response) {
                 try {
                     JSONArray jsonArray= response.getJSONArray("Table");
 
                     for (int i=0; i<jsonArray.length(); i++){
                         JSONObject ParseoOBJ= jsonArray.getJSONObject(i);
-                        String Titulo= ParseoOBJ.getString("Nombre");
-                        String Descripcion= ParseoOBJ.getString("Correo");
-                        String Foto= ParseoOBJ.getString("FotoPerfil");
+                         Titulo= ParseoOBJ.getString("Nombre");
+                         Descripcion= ParseoOBJ.getString("Correo");
+                        Foto= ParseoOBJ.getString("FotoPerfil");
 
                         listadeArticulos.add(new ClsArticulos(Titulo,Descripcion,Foto));
 
@@ -88,7 +95,17 @@ public class FragmentCulturaClass extends Fragment {
                     adapterArticulo.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
-                            iComArticulos.EnviarDatosArticulosDetalle(listadeArticulos.get(recyclerView.getChildAdapterPosition(view)));
+                           // iComArticulos.EnviarDatosArticulosDetalle(listadeArticulos.get(recyclerView.getChildAdapterPosition(view)));
+
+                            Intent intent = new Intent(getActivity(), DetalleCulturaActivity.class);
+                            Bundle bundle = new Bundle();
+                            bundle.putString("Img",listadeArticulos.get(recyclerView.getChildAdapterPosition(view)).getFotoArticulo());
+                            bundle.putString("Descrip",listadeArticulos.get(recyclerView.getChildAdapterPosition(view)).getDescripcion());
+                            bundle.putString("TituloC",listadeArticulos.get(recyclerView.getChildAdapterPosition(view)).getTitulo());
+
+                            intent.putExtras(bundle);
+                            startActivity(intent);
+
                         }
                     });
                     recyclerView.setAdapter(adapterArticulo);

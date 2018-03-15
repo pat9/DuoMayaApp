@@ -1,4 +1,5 @@
 package com.example.luisr.duomayaapp;
+import android.content.Intent;
 import android.os.Environment;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -107,9 +108,8 @@ public class InicioActivity extends AppCompatActivity implements IComArticulos {
                 .beginTransaction()
                 .replace(R.id.Fragment_ContainerXML,fragmentdetalle_cultura).addToBackStack(null).commit();
 
-
-
-
+        Intent intent= new Intent(this,DetalleCulturaActivity.class);
+        startActivity(intent);
     }
 
     public static Map Configuracion()

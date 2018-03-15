@@ -31,7 +31,7 @@ public class Fragmentdetalle_cultura extends Fragment {
 
      imgDetalle=(ImageView)rootView.findViewById(R.id.ImgDetalleCultura);
      txtCult=(TextView)rootView.findViewById(R.id.txtDetalleCultura);
-     DescripDetalle=(TextView)rootView.findViewById(R.id.DescripDetalleCult);
+     DescripDetalle=(TextView)rootView.findViewById(R.id.DescripCult);
 
      Bundle bundle=getArguments();
         ClsArticulos clsArticulos=null;
