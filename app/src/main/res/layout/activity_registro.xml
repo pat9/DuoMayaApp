@@ -90,6 +90,7 @@
                     android:singleLine="true" />
 
                 <ImageView
+                    android:id="@+id/imgperfil"
                     android:layout_width="100sp"
                     android:layout_height="100sp"
                     android:layout_gravity="center"

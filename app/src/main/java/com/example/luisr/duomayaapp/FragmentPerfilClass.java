@@ -1,8 +1,10 @@
 package com.example.luisr.duomayaapp;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
@@ -39,6 +41,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.HashMap;
@@ -47,21 +51,23 @@ import java.util.Map;
 import Clases.Usuario;
 
 import static android.app.Activity.RESULT_OK;
-
+import AsyncTasks.descargarDatosAsyncTask;
 /**
  * Created by LuisR on 25/02/2018.
  * Edited by Daniel Pat on 28/02/2018
  */
 
-public class FragmentPerfilClass extends Fragment {
+public class FragmentPerfilClass extends Fragment implements descargarDatosAsyncTask.interfacedelhilo {
     TextView txtNombre;
     ImageView imgPerfil, btnFoto;
     View rootView;
     String Accion = "";
-
+    File FotoFinal;
+    Bundle bundle;
+    SharedPreferences preferences;
     private final String ruta_fotos = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES) + "/DuoMaya/";
-
     private File file = new File(ruta_fotos);
+    public  static  final  String MyPrefences = "Usuario";
 
     @Nullable
     @Override
@@ -71,13 +77,18 @@ public class FragmentPerfilClass extends Fragment {
         txtNombre = rootView.findViewById(R.id.txtNombreUsu);
         imgPerfil = rootView.findViewById(R.id.imgperfil);
         btnFoto = rootView.findViewById(R.id.btnFoto);
-        Bundle bundle = getArguments();
+        bundle = getArguments();
 
         if(bundle != null)
         {
+            preferences = getActivity().getSharedPreferences(MyPrefences, Context.MODE_PRIVATE);
             Usuario usuario = (Usuario)bundle.get("Usuario");
             txtNombre.setText(usuario.Nombre + " " + usuario.Apellido +" ("+usuario.NickName+")");
             Picasso.with(getActivity()).load(usuario.FotoPerfil).into(imgPerfil);
+            SharedPreferences.Editor editor = preferences.edit();
+            editor.putInt("Codigo", usuario.Codigo);
+            editor.commit();
+
         }
 
         btnFoto.setOnClickListener(new View.OnClickListener() {
@@ -123,26 +134,20 @@ public class FragmentPerfilClass extends Fragment {
     static final int REQUEST_IMAGE_CAPTURE = 1;
 
     private void dispatchTakePictureIntent() {
-        StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
-        StrictMode.setVmPolicy(builder.build());
-        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        if (takePictureIntent.resolveActivity(getActivity().getPackageManager()) != null) {
-            Uri uriSavedImage=Uri.fromFile(new File(ruta_fotos+getCode()+".png"));
-            takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, uriSavedImage);
-            startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
+        String state= Environment.getExternalStorageState();
+        if(Environment.MEDIA_MOUNTED.equals(state)) {
+            long captureTime = System.currentTimeMillis();
+            String photoPath = Environment.getExternalStorageDirectory() + "/DCIM/Camera/Point" + captureTime + ".jpg";
+            try {
+                Intent intent = new Intent("android.media.action.IMAGE_CAPTURE");
+                FotoFinal = new File(photoPath);
+                intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(FotoFinal));
+                startActivityForResult(Intent.createChooser(intent, "Capture una foto"), 1);
+            } catch (Exception e) {
+
+            }
         }
     }
-
-
-    private String getCode()
-    {
-        Calendar c = Calendar.getInstance();
-        SimpleDateFormat df = new SimpleDateFormat("yyyyMMddHHmmss");
-        String formattedDate = df.format(c.getTime());
-        return formattedDate;
-
-    }
-
 
     private static final  int SELECT_FILE  =1;
     protected void SelectGaleria()
@@ -159,45 +164,49 @@ public class FragmentPerfilClass extends Fragment {
     {
         if (requestcode == REQUEST_IMAGE_CAPTURE && resultcode == RESULT_OK && Accion =="CAMARA") {
             Bundle extras = data.getExtras();
-            
+
             if(extras != null)
             {
                 Bitmap imageBitmap = (Bitmap) extras.get("data");
-                Uri img = (Uri)extras.get(MediaStore.EXTRA_OUTPUT);
-                Toast.makeText(getActivity(), img.toString(), Toast.LENGTH_SHORT).show();
+                Uri img = Uri.fromFile(FotoFinal);
                 imgPerfil.setImageBitmap(imageBitmap);
-                ByteArrayOutputStream stream = new ByteArrayOutputStream(imageBitmap.getByteCount());
-                imageBitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
-                byte[] bytes = stream.toByteArray();
                 String RequestID = MediaManager.get().upload(img).callback(new UploadCallback() {
-                    @Override
-                    public void onStart(String requestId) {
+                        @Override
+                        public void onStart(String requestId) {
 
-                    }
+                        }
 
-                    @Override
-                    public void onProgress(String requestId, long bytes, long totalBytes) {
+                        @Override
+                        public void onProgress(String requestId, long bytes, long totalBytes) {
 
-                    }
+                        }
 
-                    @Override
-                    public void onSuccess(String requestId, Map resultData) {
-                        String URLRESULTADO =  resultData.get("url").toString();
-                        Toast.makeText(getActivity(), URLRESULTADO, Toast.LENGTH_SHORT).show();
-                    }
+                        @Override
+                        public void onSuccess(String requestId, Map resultData) {
+                            String URLRESULTADO =  resultData.get("url").toString();
+                            descargarDatosAsyncTask obj = new descargarDatosAsyncTask();
+                            obj.delegado = FragmentPerfilClass.this;
+                            try {
+                                obj.execute(new URL("http://aprendermayaws.gear.host/AprenderMayaWS.asmx/CambiarImagen?URL="+URLRESULTADO+"&CodigoUsuario="+preferences.getInt("Codigo",0)));
+                                SharedPreferences.Editor editor = preferences.edit();
+                                editor.putString("Foto", URLRESULTADO);
+                                editor.commit();
+                            } catch (MalformedURLException e) {
+                                e.printStackTrace();
+                            }
+                        }
 
-                    @Override
-                    public void onError(String requestId, ErrorInfo error) {
-                        Toast.makeText(getActivity(), "Error", Toast.LENGTH_SHORT).show();
-                    }
+                        @Override
+                        public void onError(String requestId, ErrorInfo error) {
+                            Toast.makeText(getActivity(), "Error", Toast.LENGTH_SHORT).show();
+                        }
 
-                    @Override
-                    public void onReschedule(String requestId, ErrorInfo error) {
+                        @Override
+                        public void onReschedule(String requestId, ErrorInfo error) {
 
-                    }
-                }).dispatch();
-                //Log.d("URL", MediaManager.get().url().generate());
-                Log.d("Resultado", RequestID.toString());
+                        }
+                    }).dispatch();
+
             }
         }
         else
@@ -205,7 +214,6 @@ public class FragmentPerfilClass extends Fragment {
             if(resultcode == RESULT_OK && Accion =="GALERIA")
             {
                 Uri selectedImage = data.getData();
-                Log.d("uri", selectedImage.toString());
                 InputStream is;
                 try
                 {
@@ -225,7 +233,17 @@ public class FragmentPerfilClass extends Fragment {
 
                         @Override
                         public void onSuccess(String requestId, Map resultData) {
-                            Log.d("Resultado", resultData.get("url").toString());
+                            String URLRESULTADO =  resultData.get("url").toString();
+                            descargarDatosAsyncTask obj = new descargarDatosAsyncTask();
+                            obj.delegado = FragmentPerfilClass.this;
+                            try {
+                                obj.execute(new URL("http://aprendermayaws.gear.host/AprenderMayaWS.asmx/CambiarImagen?URL="+URLRESULTADO+"&CodigoUsuario="+preferences.getInt("Codigo",0)));
+                                SharedPreferences.Editor editor = preferences.edit();
+                                editor.putString("Foto", URLRESULTADO);
+                                editor.commit();
+                            } catch (MalformedURLException e) {
+                                e.printStackTrace();
+                            }
                         }
 
                         @Override
@@ -238,7 +256,6 @@ public class FragmentPerfilClass extends Fragment {
 
                         }
                     }).dispatch();
-                    Log.d("Resultado", resID);
                     imgPerfil.setImageBitmap(bitmap);
 
                 } catch (FileNotFoundException e) {
@@ -255,4 +272,8 @@ public class FragmentPerfilClass extends Fragment {
     }
 
 
+    @Override
+    public void datosDescagados(String Datos) {
+
+    }
 }
