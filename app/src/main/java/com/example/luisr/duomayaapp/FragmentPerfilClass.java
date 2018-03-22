@@ -1,6 +1,7 @@
 package com.example.luisr.duomayaapp;
 
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -68,6 +69,7 @@ public class FragmentPerfilClass extends Fragment implements descargarDatosAsync
     private final String ruta_fotos = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES) + "/DuoMaya/";
     private File file = new File(ruta_fotos);
     public  static  final  String MyPrefences = "Usuario";
+    ProgressDialog pd;
 
     @Nullable
     @Override
@@ -162,6 +164,10 @@ public class FragmentPerfilClass extends Fragment implements descargarDatosAsync
     @Override
     public void onActivityResult(int requestcode, int resultcode, Intent data)
     {
+        pd =  new ProgressDialog(getActivity());
+        pd.setTitle("Modificando foto...");
+        pd.setMessage("Espere por favor");
+        pd.show();
         if (requestcode == REQUEST_IMAGE_CAPTURE && resultcode == RESULT_OK && Accion =="CAMARA") {
             Bundle extras = data.getExtras();
 
@@ -269,11 +275,12 @@ public class FragmentPerfilClass extends Fragment implements descargarDatosAsync
                 Toast.makeText(getActivity(), "Salio de la galeria", Toast.LENGTH_SHORT).show();
             }
         }
+
     }
 
 
     @Override
     public void datosDescagados(String Datos) {
-
+        pd.hide();
     }
 }

@@ -28,7 +28,7 @@ public class AhorcadoActivity extends AppCompatActivity implements descargarDato
     Integer Intentos, PalabraLength;
     char[] Palabra;
     String Pista;
-
+    Integer Accion = 0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,6 +61,7 @@ public class AhorcadoActivity extends AppCompatActivity implements descargarDato
                 if(PalabraLength == 0)
                 {
                     Habilitar(false);
+                    JuegoGanado();
                     Toast.makeText(this, "Ganaste :D", Toast.LENGTH_SHORT).show();
                     return;
                 }
@@ -103,6 +104,7 @@ public class AhorcadoActivity extends AppCompatActivity implements descargarDato
         descargarDatosAsyncTask obj = new descargarDatosAsyncTask();
         obj.delegado=this;
         try {
+            Accion = 1;
             //Continua en datosDescargados
             obj.execute(new URL(URL));
         } catch (MalformedURLException e) {
@@ -112,38 +114,46 @@ public class AhorcadoActivity extends AppCompatActivity implements descargarDato
     }
 
     @Override
-    public void datosDescagados(String Datos) {
-        final ArrayList<Contenido> Lista = new ArrayList<Contenido>();
-        try
+    public void datosDescagados(String Datos)
+    {
+        if(Accion == 1)
         {
-            JSONArray jsonArray = new JSONArray(Datos);
 
-            for(int i=0; i<jsonArray.length();i++)
+            final ArrayList<Contenido> Lista = new ArrayList<Contenido>();
+            try
             {
-                JSONObject object = jsonArray.getJSONObject(i);
-                Contenido contenido = new Contenido();
-                contenido.CodigoContenido = object.getInt("CodigoContenido");
-                contenido.PalabraEsp = object.getString("PalabraEs");
-                contenido.PalabraMaya = object.getString("PalabraMaya");
-                contenido.CodigoLeccion = object.getInt("CodigoLeccion");
-                Lista.add(contenido);
+                JSONArray jsonArray = new JSONArray(Datos);
+
+                for(int i=0; i<jsonArray.length();i++)
+                {
+                    JSONObject object = jsonArray.getJSONObject(i);
+                    Contenido contenido = new Contenido();
+                    contenido.CodigoContenido = object.getInt("CodigoContenido");
+                    contenido.PalabraEsp = object.getString("PalabraEs");
+                    contenido.PalabraMaya = object.getString("PalabraMaya");
+                    contenido.CodigoLeccion = object.getInt("CodigoLeccion");
+                    Lista.add(contenido);
+                }
+
+                int NumeroAletorio = (int) (Math.random() * Lista.size()) ;
+                Palabra = Lista.get(NumeroAletorio).PalabraMaya.toUpperCase().toCharArray();
+                Pista = Lista.get(NumeroAletorio).PalabraEsp;
+                txtPista.setText("Se traduce al español como: " + Pista);
+                PalabraLength = Palabra.length;
+                Construye();
+            } catch (JSONException e) {
+                e.printStackTrace();
             }
 
-            int NumeroAletorio = (int) (Math.random() * Lista.size()) ;
-            Palabra = Lista.get(NumeroAletorio).PalabraMaya.toUpperCase().toCharArray();
-            Pista = Lista.get(NumeroAletorio).PalabraEsp;
-            txtPista.setText("Se traduce al español como: " + Pista);
-            PalabraLength = Palabra.length;
-            Construye();
-        } catch (JSONException e) {
-            e.printStackTrace();
         }
+        else if(Accion == 2)
+        {
 
+        }
     }
 
     public void Construye()
     {
-
         for(int i = 0; i < Palabra.length; i++)
         {
             TextView row = new TextView(this);
@@ -159,6 +169,15 @@ public class AhorcadoActivity extends AppCompatActivity implements descargarDato
         Habilitar(true);
     }
 
-
+    public void JuegoGanado()
+    {
+        descargarDatosAsyncTask obj = new descargarDatosAsyncTask();
+        obj.delegado = this;
+        try {
+            obj.execute(new URL("http://aprendermayaws.gear.host/AprenderMayaWS.asmx/RegistrarPuntos?CodigoUsuario=1&Puntos=10&Descripcion=Ahorcado"));
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+    }
 
 }
