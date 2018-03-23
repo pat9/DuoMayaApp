@@ -1,5 +1,7 @@
 package com.example.luisr.duomayaapp;
 
+import android.app.ProgressDialog;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.TypedValue;
@@ -26,6 +28,7 @@ public class AhorcadoActivity extends AppCompatActivity implements descargarDato
     ArrayList<View> BotonesLetras;
     TextView txtPista;
     Integer Intentos, PalabraLength;
+    ProgressDialog progressDialog;
     char[] Palabra;
     String Pista;
     Integer Accion = 0;
@@ -61,8 +64,8 @@ public class AhorcadoActivity extends AppCompatActivity implements descargarDato
                 if(PalabraLength == 0)
                 {
                     Habilitar(false);
-                    JuegoGanado();
                     Toast.makeText(this, "Ganaste :D", Toast.LENGTH_SHORT).show();
+                    JuegoGanado();
                     return;
                 }
             }
@@ -148,7 +151,9 @@ public class AhorcadoActivity extends AppCompatActivity implements descargarDato
         }
         else if(Accion == 2)
         {
-
+            progressDialog.hide();
+            Intent intent = new Intent(this, InicioActivity.class);
+            startActivity(intent);
         }
     }
 
@@ -171,6 +176,11 @@ public class AhorcadoActivity extends AppCompatActivity implements descargarDato
 
     public void JuegoGanado()
     {
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setTitle("Registrando victoria...");
+        progressDialog.setMessage("Espere por favor");
+        progressDialog.show();
+        Accion = 2;
         descargarDatosAsyncTask obj = new descargarDatosAsyncTask();
         obj.delegado = this;
         try {

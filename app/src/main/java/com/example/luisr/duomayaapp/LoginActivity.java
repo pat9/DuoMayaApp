@@ -25,6 +25,7 @@ import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.HashMap;
 import java.util.Map;
 
 import AsyncTasks.descargarDatosAsyncTask;
@@ -41,6 +42,7 @@ public class LoginActivity extends AppCompatActivity {
 
         PermisoCamara();
 
+        MediaManager.init(this,Configuracion());
 
         BtnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -104,6 +106,16 @@ public class LoginActivity extends AppCompatActivity {
 
 
     }
+
+    public static Map Configuracion()
+    {
+        Map Config = new HashMap();
+        Config.put("cloud_name", "pat9");
+        Config.put("api_key", "481118882942431");
+        Config.put("api_secret", "ZiGf8m8U772_wHl-Oa0VMvymB4o");
+        return Config;
+    }
+
 
 
 

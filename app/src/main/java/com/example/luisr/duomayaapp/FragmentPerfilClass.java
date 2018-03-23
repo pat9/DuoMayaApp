@@ -59,7 +59,7 @@ import AsyncTasks.descargarDatosAsyncTask;
  */
 
 public class FragmentPerfilClass extends Fragment implements descargarDatosAsyncTask.interfacedelhilo {
-    TextView txtNombre;
+    TextView txtNombre, txtPuntos;
     ImageView imgPerfil, btnFoto;
     View rootView;
     String Accion = "";
@@ -77,6 +77,7 @@ public class FragmentPerfilClass extends Fragment implements descargarDatosAsync
 
         rootView = inflater.inflate(R.layout.fragment_perfil,container,false);
         txtNombre = rootView.findViewById(R.id.txtNombreUsu);
+        txtPuntos = rootView.findViewById(R.id.txtPuntos);
         imgPerfil = rootView.findViewById(R.id.imgperfil);
         btnFoto = rootView.findViewById(R.id.btnFoto);
         bundle = getArguments();
@@ -90,6 +91,7 @@ public class FragmentPerfilClass extends Fragment implements descargarDatosAsync
             SharedPreferences.Editor editor = preferences.edit();
             editor.putInt("Codigo", usuario.Codigo);
             editor.commit();
+            MostrarPuntuacion(usuario.Codigo);
 
         }
 
@@ -275,12 +277,35 @@ public class FragmentPerfilClass extends Fragment implements descargarDatosAsync
                 Toast.makeText(getActivity(), "Salio de la galeria", Toast.LENGTH_SHORT).show();
             }
         }
+        Accion ="";
 
     }
 
+    public void MostrarPuntuacion(int Codigo)
+    {
+        descargarDatosAsyncTask obj = new descargarDatosAsyncTask();
+        obj.delegado = FragmentPerfilClass.this;
+        try {
+            obj.execute(new URL("http://aprendermayaws.gear.host/AprenderMayaWS.asmx/GetTotalPuntos?CodigoUsuario="+Codigo));
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+    }
 
     @Override
     public void datosDescagados(String Datos) {
-        pd.hide();
+        Log.d("Accion", Accion);
+        if(Accion == "CAMARA" || Accion =="GALERIA")
+        {
+            pd.hide();
+        }
+        else
+        {
+            Integer Puntos = Integer.parseInt(Datos);
+            txtPuntos.setText("Puntos: " + Puntos);
+        }
+
+
+
     }
 }

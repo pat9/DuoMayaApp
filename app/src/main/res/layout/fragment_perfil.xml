@@ -59,13 +59,13 @@
 
 
           <TextView
+              android:id="@+id/txtPuntos"
               android:layout_width="wrap_content"
               android:layout_height="wrap_content"
-              android:textColor="@android:color/white"
-              android:textSize="15dp"
               android:text="Puntaje para  el siguiente nivel"
+              android:textColor="@android:color/white"
 
-              />
+              android:textSize="15dp" />
 
           <ProgressBar
               android:layout_marginTop="20dp"
