@@ -30,10 +30,12 @@
             android:value="cloudinary://481118882942431:ZiGf8m8U772_wHl-Oa0VMvymB4o@pat9"
             />
 
+
         <activity android:name=".actionLoginActivity"
             android:windowSoftInputMode="adjustResize"/>
         <activity android:name=".RegistroActivity" />
         <activity android:name=".InicioActivity" android:theme="@style/MisEstilosActionBar" android:label="@string/MisEstilosActionBar"></activity>
+        <activity android:name=".DetalleCulturaActivity" />
     </application>
 
 </manifest>

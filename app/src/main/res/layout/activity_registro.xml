@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fillViewport="true"
-    android:scrollbars="none"
+    android:background="#e2e2e2"
     tools:context="com.example.luisr.duomayaapp.RegistroActivity">
 
     <LinearLayout
@@ -35,83 +35,99 @@
                     />
             </LinearLayout>
 
-            <LinearLayout
-                android:id="@+id/LayoutInput2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
 
-                android:layout_centerVertical="true"
+            <android.support.v7.widget.CardView
+                android:id="@+id/cardRegistro"
+                android:layout_width="320dp"
+                android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
-                android:orientation="vertical"
-                android:padding="15dp"
-                android:background="#fff"
+                android:layout_centerVertical="true"
+                app:cardElevation="15dp"
+                app:cardCornerRadius="15dp"
                 >
 
-                <EditText
-                    android:id="@+id/txtUsuario"
+                <LinearLayout
+                    android:id="@+id/LayoutInput2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:drawableRight="@drawable/ic_person"
-                    android:hint="Usuario"
-                    android:singleLine="true" />
 
-                <EditText
-                    android:id="@+id/txtPassword"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:drawableRight="@drawable/ic_vpn_key"
-                    android:hint="Contraseña"
-                    android:inputType="textPassword"
-                    android:singleLine="true" />
+                    android:layout_centerVertical="true"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginLeft="12dp"
+                    android:layout_marginRight="12dp"
+                    android:orientation="vertical"
+                    android:padding="15dp"
+                    android:background="#fff"
+                    >
 
-                <EditText
-                    android:id="@+id/txtEmail"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:drawableRight="@drawable/ic_email"
-                    android:hint="Email"
-                    android:singleLine="true" />
+                    <EditText
+                        android:id="@+id/txtUsuario"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:drawableRight="@drawable/ic_person"
+                        android:fontFamily="@font/open_sans_bold"
 
-                <EditText
-                    android:id="@+id/txtNombre"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:drawableRight="@drawable/ic_person"
-                    android:hint="Nombre" />
+                        android:hint="Usuario"
+                        android:singleLine="true" />
 
-                <EditText
-                    android:id="@+id/txtApellido"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:drawableRight="@drawable/ic_person"
-                    android:hint="Apellido"
-                    android:singleLine="true" />
+                    <EditText
+                        android:id="@+id/txtPassword"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:drawableRight="@drawable/ic_vpn_key"
+                        android:fontFamily="@font/open_sans_bold"
+                        android:hint="Contraseña"
+                        android:inputType="textPassword"
+                        android:singleLine="true" />
 
-                <ImageView
-                    android:layout_width="100sp"
-                    android:layout_height="100sp"
-                    android:layout_gravity="center"
-                    android:background="@drawable/ripplegroud"
-                    android:src="@drawable/ic_wallpaper" />
+                    <EditText
+                        android:id="@+id/txtEmail"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:drawableRight="@drawable/ic_email"
+                        android:fontFamily="@font/open_sans_bold"
+                        android:hint="Email"
+                        android:singleLine="true" />
 
-                <Button
+                    <EditText
+                        android:id="@+id/txtNombre"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:drawableRight="@drawable/ic_person"
+                        android:fontFamily="@font/open_sans_bold"
+                        android:hint="Nombre" />
 
-                    android:id="@+id/btnEntrar"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/ripplegroud"
-                    android:fontFamily="@font/open_sans"
-                    android:text="Registrarse" />
+                    <EditText
+                        android:id="@+id/txtApellido"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:drawableRight="@drawable/ic_person"
+                        android:fontFamily="@font/open_sans_bold"
+                        android:hint="Apellido"
+                        android:singleLine="true" />
 
-            </LinearLayout>
+
+                    <Button
+
+                        android:id="@+id/btnEntrar"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginRight="15dp"
+                        android:layout_marginTop="18dp"
+                        android:background="@drawable/btnshape"
+                        android:fontFamily="@font/open_sans"
+                        android:text="Registrarse" />
+
+                </LinearLayout>
+            </android.support.v7.widget.CardView>
+
 
             <TextView
                 android:id="@+id/textDuoMaya"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_above="@id/LayoutInput2"
+                android:layout_above="@id/cardRegistro"
                 android:layout_centerHorizontal="true"
                 android:text="DUO MAYA"
                 android:textColor="@android:color/background_light"

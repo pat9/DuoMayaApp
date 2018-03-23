@@ -1,8 +1,10 @@
 package com.example.luisr.duomayaapp;
 
 import android.content.Intent;
+import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -15,6 +17,7 @@ public class DetalleCulturaActivity extends AppCompatActivity {
     ImageView imageView;
     TextView textViewTitulo;
     TextView textViewDescrip;
+    CollapsingToolbarLayout collapsingToolbarLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,6 +27,11 @@ public class DetalleCulturaActivity extends AppCompatActivity {
         imageView=(ImageView)findViewById(R.id.ImgCult);
         textViewTitulo=(TextView)findViewById(R.id.textTituloCult);
         textViewDescrip=(TextView)findViewById(R.id.descriptxt);
+        collapsingToolbarLayout=(CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
+
+        setSupportActionBar((Toolbar) findViewById(R.id.toolbarDetalle));
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
 
        Bundle bundle =getIntent().getExtras();
 
