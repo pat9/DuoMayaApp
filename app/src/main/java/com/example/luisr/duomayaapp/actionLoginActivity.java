@@ -23,7 +23,8 @@ import Clases.Usuario;
 public class actionLoginActivity extends AppCompatActivity implements descargarDatosAsyncTask.interfacedelhilo {
     EditText txtUsuario, txtPassword;
     Button btnEntrar;
-    boolean Bandera =  true;
+    ProgressDialog progressDialog;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,6 +47,10 @@ public class actionLoginActivity extends AppCompatActivity implements descargarD
 
     public void IniciarSesion()
     {
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setTitle("Iniciando...");
+        progressDialog.setMessage("Espere porfis");
+        progressDialog.show();
         descargarDatosAsyncTask obj = new descargarDatosAsyncTask();
         obj.delegado = actionLoginActivity.this;
         try
@@ -62,13 +67,14 @@ public class actionLoginActivity extends AppCompatActivity implements descargarD
     public void datosDescagados(String Datos) {
         try
         {
-            Bandera= false;
             JSONObject Objeto = new JSONObject(Datos);
             if(Objeto.getString("NickName") == "null" )
             {
+                progressDialog.hide();
                 Toast.makeText(this, "Error en el login", Toast.LENGTH_SHORT).show();
             }
             else {
+                progressDialog.hide();
                 Usuario usuario = new Usuario();
                 usuario.Codigo = Objeto.getInt("Codigo");
                 usuario.NickName = Objeto.getString("NickName");
@@ -85,6 +91,7 @@ public class actionLoginActivity extends AppCompatActivity implements descargarD
             }
 
         } catch (JSONException e) {
+            progressDialog.hide();
             e.printStackTrace();
             Toast.makeText(this, "Error en el login", Toast.LENGTH_SHORT).show();
         }
