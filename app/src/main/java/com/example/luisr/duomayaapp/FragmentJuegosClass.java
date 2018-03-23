@@ -1,5 +1,6 @@
 package com.example.luisr.duomayaapp;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -22,6 +23,7 @@ public class FragmentJuegosClass extends Fragment {
 
     ArrayList<ClsJuegoAhorcado> ListaAhorcado;
     RecyclerView recyclerView;
+    Context context;
 
 
     @Nullable

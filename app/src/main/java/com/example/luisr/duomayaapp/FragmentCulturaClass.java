@@ -45,6 +45,7 @@ public class FragmentCulturaClass extends Fragment {
     RequestQueue requestQueue;
     AdapterArticulo adapterArticulo;
     Activity activity;
+
     IComArticulos iComArticulos;
 
     //Variables
