@@ -46,13 +46,13 @@ public class RegistroActivity extends AppCompatActivity implements descargarDato
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registro);
-        txtPassword = findViewById(R.id.txtPassword);
-        txtApellido = findViewById(R.id.txtApellido);
-        txtEmail = findViewById(R.id.txtEmail);
-        txtNombre = findViewById(R.id.txtNombre);
-        txtUsuario = findViewById(R.id.txtUsuario);
+        //txtPassword = findViewById(R.id.txtPassword);
+        //txtApellido = findViewById(R.id.txtApellido);
+        //txtEmail = findViewById(R.id.txtEmail);
+        //txtNombre = findViewById(R.id.txtNombre);
+        //txtUsuario = findViewById(R.id.txtUsuario);
         btnEntrar = findViewById(R.id.btnEntrar);
-        imgPerfil = findViewById(R.id.imgperfil);
+        //imgPerfil = findViewById(R.id.imgperfil);
         btnEntrar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -67,12 +67,12 @@ public class RegistroActivity extends AppCompatActivity implements descargarDato
             }
         });
 
-        imgPerfil.setOnClickListener(new View.OnClickListener() {
+        /*imgPerfil.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 AbrirMenuFoto();
             }
-        });
+        });*/
 
     }
 

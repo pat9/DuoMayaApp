@@ -7,7 +7,7 @@
     android:orientation="vertical"
     tools:context="com.example.luisr.duomayaapp.AhorcadoActivity">
     <LinearLayout
-        android:orientation="vertical"
+        android:orientation="horizontal"
         android:layout_weight="1"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -17,24 +17,71 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:src="@mipmap/ic_launcher" />
-        <TextView
-            android:id="@+id/txtPista"
-            android:textAlignment="center"
-            android:text="Aqui va Un texto"
+        <LinearLayout
             android:layout_weight="1"
+            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/IntentosAhorcado"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_marginTop="30sp"
+                android:layout_weight="1"
+                android:text="0 de 0"
+                android:textAlignment="textStart"
+                android:textSize="15pt"
+                android:textStyle="bold" />
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/RelojAhorcado"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:text="00:00"
+                    android:textAlignment="center"
+                    android:textSize="15pt"
+                    android:textStyle="bold" />
+
+                <ProgressBar
+
+                    android:id="@+id/ProgressAhorcado"
+                    style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:max="30"
+                    android:progress="30" />
+            </LinearLayout>
+        </LinearLayout>
+
     </LinearLayout>
     <LinearLayout
         android:orientation="vertical"
         android:layout_weight="1"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+        <TextView
+            android:id="@+id/txtPista"
+            android:textAlignment="center"
+            android:text="Aqui va Un texto"
+            android:layout_weight="0.5"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
         <LinearLayout
+            android:layout_weight="10"
+            android:layout_gravity="center"
             android:id="@+id/Espacios"
             android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_width="wrap_content"
+            android:layout_height="5dp">
 
         </LinearLayout>
     </LinearLayout>

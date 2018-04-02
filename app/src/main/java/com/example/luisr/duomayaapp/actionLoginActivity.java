@@ -88,6 +88,7 @@ public class actionLoginActivity extends AppCompatActivity implements descargarD
                 Intent intent = new Intent(actionLoginActivity.this,InicioActivity.class);
                 intent.putExtra("Usuario", usuario);
                 startActivity(intent);
+                finish();
             }
 
         } catch (JSONException e) {

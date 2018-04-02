@@ -1,6 +1,7 @@
 package com.example.luisr.duomayaapp;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -9,11 +10,14 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
 import Adaptadores.AdapterJuegoAhorcado;
 import Clases.ClsJuegoAhorcado;
+import Interfaces.CustomItemClickListener;
 
 /**
  * Created by LuisR on 25/02/2018.
@@ -39,8 +43,17 @@ public class FragmentJuegosClass extends Fragment {
 
         GenerarLista();
 
-        AdapterJuegoAhorcado adap= new AdapterJuegoAhorcado(getContext(),ListaAhorcado);
+        AdapterJuegoAhorcado adap= new AdapterJuegoAhorcado(getContext(), ListaAhorcado, new CustomItemClickListener() {
+            @Override
+            public void OnItemClick(View v, int Position) {
+                Toast.makeText(getActivity(), Position +  "", Toast.LENGTH_SHORT).show();
+                Intent itent = new Intent(getActivity(), AhorcadoActivity.class);
+                startActivity(itent);
+                getActivity().finish();
+            }
+        });
         recyclerView.setAdapter(adap);
+
 
 
         return view;
@@ -55,10 +68,8 @@ public class FragmentJuegosClass extends Fragment {
         ListaAhorcado.add(new ClsJuegoAhorcado("Ahorcado","Perrsonajes",R.mipmap.ic_launcher));
         ListaAhorcado.add(new ClsJuegoAhorcado("Ahorcado","Culturales",R.mipmap.ic_launcher));
         ListaAhorcado.add(new ClsJuegoAhorcado("Ahorcado","Frutas",R.mipmap.ic_launcher));
-        ListaAhorcado.add(new ClsJuegoAhorcado("Ahorcado","Frutas",R.mipmap.ic_launcher));
-        ListaAhorcado.add(new ClsJuegoAhorcado("Ahorcado","Frutas",R.mipmap.ic_launcher));
-        ListaAhorcado.add(new ClsJuegoAhorcado("Ahorcado","Frutas",R.mipmap.ic_launcher));
-        ListaAhorcado.add(new ClsJuegoAhorcado("Ahorcado","Frutas",R.mipmap.ic_launcher));
+
+
 
     }
 }

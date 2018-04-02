@@ -1,13 +1,17 @@
 package com.example.luisr.duomayaapp;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.TypedValue;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -24,11 +28,15 @@ import Clases.Contenido;
 
 
 public class AhorcadoActivity extends AppCompatActivity implements descargarDatosAsyncTask.interfacedelhilo {
+    SharedPreferences preferences;
     LinearLayout Letras, Espacios;
     ArrayList<View> BotonesLetras;
-    TextView txtPista;
+    TextView txtPista, RelojAhorcado, IntentosAhorcado;
     Integer Intentos, PalabraLength;
     ProgressDialog progressDialog;
+    ProgressBar ProgressAhorcado;
+    CountDownTimer cdt;
+    boolean JuegoTerminado = false;
     char[] Palabra;
     String Pista;
     Integer Accion = 0;
@@ -39,9 +47,13 @@ public class AhorcadoActivity extends AppCompatActivity implements descargarDato
         Letras = findViewById(R.id.Letras);
         Espacios = findViewById(R.id.Espacios);
         txtPista = findViewById(R.id.txtPista);
+        RelojAhorcado = findViewById(R.id.RelojAhorcado);
+        ProgressAhorcado = findViewById(R.id.ProgressAhorcado);
+        IntentosAhorcado = findViewById(R.id.IntentosAhorcado);
         BotonesLetras = Letras.getTouchables();
         Intentos = 0;
         PalabraLength = 0;
+        preferences = this.getSharedPreferences("Usuario",Context.MODE_PRIVATE);
         Habilitar(false);
         ObtenerPalabra();
     }
@@ -74,21 +86,12 @@ public class AhorcadoActivity extends AppCompatActivity implements descargarDato
         {
             btn.setEnabled(false);
             Intentos++;
-            //txtIntentos.setText(Intentos + " de 4 intentos");
+            IntentosAhorcado.setText(Intentos + " de 4 intentos");
         }
 
         if(Intentos == 4)
         {
-            Toast.makeText(this, "Perdiste :(", Toast.LENGTH_SHORT).show();
-            for(int i=0; i<Palabra.length; i++)
-            {
-
-                TextView Text = findViewById(i);
-                Text.setText(""+Palabra[i]);
-                btn.setEnabled(false);
-
-            }
-            Habilitar(false);
+            JuegoPerdido();
             return;
         }
     }
@@ -152,8 +155,7 @@ public class AhorcadoActivity extends AppCompatActivity implements descargarDato
         else if(Accion == 2)
         {
             progressDialog.hide();
-            Intent intent = new Intent(this, InicioActivity.class);
-            startActivity(intent);
+            CerrarActivity();
         }
     }
 
@@ -162,20 +164,53 @@ public class AhorcadoActivity extends AppCompatActivity implements descargarDato
         for(int i = 0; i < Palabra.length; i++)
         {
             TextView row = new TextView(this);
-            row.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
+            row.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT, 1));
             row.setId(i);
             row.setText("-");
             row.setTextSize(TypedValue.COMPLEX_UNIT_SP, 30);
             row.setPadding(0, 0, 0, 0);
             row.setWidth(100);
-
             Espacios.addView(row);
         }
         Habilitar(true);
+        cdt = new CountDownTimer(30000, 1000)
+        {
+
+            @Override
+            public void onTick(long millisUntilFinished) {
+                if(!JuegoTerminado)
+                {
+                    Integer Seconds = (int)(millisUntilFinished/1000);
+                    Integer Progress = ProgressAhorcado.getProgress();
+                    if(Seconds >= 10)
+                    {
+                        RelojAhorcado.setText("00:" + Seconds);
+                    }
+                    else
+                    {
+                        RelojAhorcado.setText("00:0" + Seconds);
+                    }
+                    ProgressAhorcado.setProgress(Progress - 1);
+                }
+
+            }
+
+            @Override
+            public void onFinish() {
+                if(!JuegoTerminado)
+                {
+                    RelojAhorcado.setText("00:00");
+                    ProgressAhorcado.setProgress(0);
+                    JuegoPerdido();
+                }
+            }
+        }.start();
     }
 
     public void JuegoGanado()
     {
+        cdt.cancel();
+        JuegoTerminado = true;
         progressDialog = new ProgressDialog(this);
         progressDialog.setTitle("Registrando victoria...");
         progressDialog.setMessage("Espere por favor");
@@ -184,10 +219,33 @@ public class AhorcadoActivity extends AppCompatActivity implements descargarDato
         descargarDatosAsyncTask obj = new descargarDatosAsyncTask();
         obj.delegado = this;
         try {
-            obj.execute(new URL("http://aprendermayaws.gear.host/AprenderMayaWS.asmx/RegistrarPuntos?CodigoUsuario=1&Puntos=10&Descripcion=Ahorcado"));
+            obj.execute(new URL("http://aprendermayaws.gear.host/AprenderMayaWS.asmx/RegistrarPuntos?CodigoUsuario="+preferences.getInt("Codigo",0)+"&Puntos=10&Descripcion=Ahorcado"));
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }
+    }
+
+    public void JuegoPerdido()
+    {
+        cdt.cancel();
+        JuegoTerminado = true;
+        Toast.makeText(this, "Perdiste :(", Toast.LENGTH_SHORT).show();
+        for(int i=0; i<Palabra.length; i++)
+        {
+
+            TextView Text = findViewById(i);
+            Text.setText(""+Palabra[i]);
+        }
+        Habilitar(false);
+        CerrarActivity();
+    }
+
+    public void CerrarActivity()
+    {
+
+        Intent intent = new Intent(this, InicioActivity.class);
+        startActivity(intent);
+        finish();
     }
 
 }

@@ -65,7 +65,6 @@ public class AdapterArticulo extends RecyclerView.Adapter<AdapterArticulo.Articu
         holder.txtDescripcion.setText(ListaArticulos.get(position).getDescripcion());
         Picasso.with(mcontext)
                 .load(ListaArticulos.get(position).getFotoArticulo())
-                .networkPolicy(NetworkPolicy.OFFLINE)
                 .into(holder.ImgAticulo);
 
     }

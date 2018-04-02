@@ -70,6 +70,7 @@ public class FragmentPerfilClass extends Fragment implements descargarDatosAsync
     private File file = new File(ruta_fotos);
     public  static  final  String MyPrefences = "Usuario";
     ProgressDialog pd;
+    Usuario usuario;
 
     @Nullable
     @Override
@@ -77,23 +78,22 @@ public class FragmentPerfilClass extends Fragment implements descargarDatosAsync
 
         rootView = inflater.inflate(R.layout.fragment_perfil,container,false);
         txtNombre = rootView.findViewById(R.id.txtNombreUsu);
-        txtPuntos = rootView.findViewById(R.id.txtPuntos);
+        //txtPuntos = rootView.findViewById(R.id.txtPuntos);
         imgPerfil = rootView.findViewById(R.id.imgperfil);
         btnFoto = rootView.findViewById(R.id.btnFoto);
         bundle = getArguments();
+        preferences = getActivity().getSharedPreferences(MyPrefences, Context.MODE_PRIVATE);
+        usuario = new Usuario();
+        usuario.Codigo = preferences.getInt("Codigo", 0);
+        usuario.Nombre = preferences.getString("Nombre", "");
+        usuario.Apellido = preferences.getString("Apellido", "");
+        usuario.NickName = preferences.getString("Usuario", "");
+        usuario.FotoPerfil = preferences.getString("Foto","");
+        txtNombre.setText(usuario.Nombre + " " + usuario.Apellido +" ("+usuario.NickName+")");
+        Picasso.with(getActivity()).load(usuario.FotoPerfil).into(imgPerfil);
+        MostrarPuntuacion(usuario.Codigo);
 
-        if(bundle != null)
-        {
-            preferences = getActivity().getSharedPreferences(MyPrefences, Context.MODE_PRIVATE);
-            Usuario usuario = (Usuario)bundle.get("Usuario");
-            txtNombre.setText(usuario.Nombre + " " + usuario.Apellido +" ("+usuario.NickName+")");
-            Picasso.with(getActivity()).load(usuario.FotoPerfil).into(imgPerfil);
-            SharedPreferences.Editor editor = preferences.edit();
-            editor.putInt("Codigo", usuario.Codigo);
-            editor.commit();
-            MostrarPuntuacion(usuario.Codigo);
 
-        }
 
         btnFoto.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -302,7 +302,7 @@ public class FragmentPerfilClass extends Fragment implements descargarDatosAsync
         else
         {
             Integer Puntos = Integer.parseInt(Datos);
-            txtPuntos.setText("Puntos: " + Puntos);
+            //txtPuntos.setText("Puntos: " + Puntos);
         }
 
 

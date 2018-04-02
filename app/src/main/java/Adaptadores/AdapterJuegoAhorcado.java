@@ -13,6 +13,7 @@ import com.example.luisr.duomayaapp.R;
 import java.util.ArrayList;
 
 import Clases.ClsJuegoAhorcado;
+import Interfaces.CustomItemClickListener;
 
 /**
  * Created by Luis Ramirez on 22/03/2018.
@@ -23,17 +24,25 @@ public class AdapterJuegoAhorcado extends RecyclerView.Adapter<AdapterJuegoAhorc
 
     ArrayList<ClsJuegoAhorcado> ListaJuego;
     private Context Mcontext;
-    private View.OnClickListener listener;
+    private CustomItemClickListener listener;
 
-    public AdapterJuegoAhorcado(Context context,ArrayList<ClsJuegoAhorcado> listaJuego){
+    public AdapterJuegoAhorcado(Context context,ArrayList<ClsJuegoAhorcado> listaJuego, CustomItemClickListener listener){
         Mcontext=context;
         ListaJuego=listaJuego;
+        this.listener = listener;
     }
 
     @Override
     public JuegoAhorcadoViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view= LayoutInflater.from(Mcontext).inflate(R.layout.item_juegos_layout,parent,false);
-        return new AdapterJuegoAhorcado.JuegoAhorcadoViewHolder(view);
+        final JuegoAhorcadoViewHolder viewHolder = new JuegoAhorcadoViewHolder(view);
+        view.findViewById(R.id.card_view1).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                listener.OnItemClick(v, viewHolder.getAdapterPosition());
+            }
+        });
+        return viewHolder;
     }
 
     @Override
