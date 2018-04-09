@@ -9,4 +9,5 @@ public class Contenido {
     public String PalabraEsp;
     public String PalabraMaya;
     public Integer CodigoLeccion;
+    public String ImagenCont;
 }

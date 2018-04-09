@@ -39,7 +39,8 @@
             android:theme="@style/MisEstilosActionBar" />
         <activity android:name=".DetalleCulturaActivity" />
         <activity android:name=".AhorcadoActivity" />
-        <activity android:name=".RankingActivity"></activity>
+        <activity android:name=".RankingActivity" />
+        <activity android:name=".LeccionActivity"></activity>
     </application>
 
 </manifest>

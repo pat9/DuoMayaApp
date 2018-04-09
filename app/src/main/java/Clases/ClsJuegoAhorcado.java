@@ -7,6 +7,9 @@ import android.widget.ImageView;
  */
 
 public class ClsJuegoAhorcado {
+
+
+    private int Codigo;
     private String Titulo;
     private String TipoJuego;
     private int ImageViewJuego;
@@ -15,10 +18,11 @@ public class ClsJuegoAhorcado {
 
     }
 
-    public ClsJuegoAhorcado(String titulo, String tipoJuego, int imageViewJuego){
+    public ClsJuegoAhorcado(int codigo, String titulo, String tipoJuego, int imageViewJuego){
         Titulo =titulo;
         TipoJuego=tipoJuego;
         ImageViewJuego=imageViewJuego;
+        Codigo = codigo;
     }
 
     public String getTitulo() {
@@ -43,5 +47,13 @@ public class ClsJuegoAhorcado {
 
     public void setImageViewJuego(int imageViewJuego) {
         this.ImageViewJuego = imageViewJuego;
+    }
+
+    public int getCodigo() {
+        return Codigo;
+    }
+
+    public void setCodigo(int codigo) {
+        Codigo = codigo;
     }
 }

@@ -73,7 +73,7 @@ public class FragmentCulturaClass extends Fragment {
     }
 
     private void GenerarListaJson() {
-        String URL="http://aprendermayaws.gearhostpreview.com/AprenderMayaWS.asmx/ListaPublicaciones";
+        String URL="http://aprendermayaws.gear.host/AprenderMayaWS.asmx/ListaCultura";
 
         JsonObjectRequest objectRequest = new JsonObjectRequest(Request.Method.GET, URL, null, new Response.Listener<JSONObject>() {
             @Override
@@ -83,9 +83,9 @@ public class FragmentCulturaClass extends Fragment {
 
                     for (int i=0; i<jsonArray.length(); i++){
                         JSONObject ParseoOBJ= jsonArray.getJSONObject(i);
-                         Titulo= ParseoOBJ.getString("Nombre");
-                         Descripcion= ParseoOBJ.getString("Correo");
-                        Foto= ParseoOBJ.getString("FotoPerfil");
+                         Titulo= ParseoOBJ.getString("Titulo");
+                         Descripcion= ParseoOBJ.getString("Contenido");
+                        Foto= ParseoOBJ.getString("ImagenCult");
 
                         listadeArticulos.add(new ClsArticulos(Titulo,Descripcion,Foto));
 
