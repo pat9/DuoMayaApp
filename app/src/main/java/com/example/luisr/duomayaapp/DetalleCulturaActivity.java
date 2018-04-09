@@ -45,4 +45,13 @@ public class DetalleCulturaActivity extends AppCompatActivity {
         }
 
     }
+
+    @Override
+    public void onBackPressed()
+    {
+        Intent intent = new Intent(this, InicioActivity.class);
+        startActivity(intent);
+        finish();
+    }
+
 }

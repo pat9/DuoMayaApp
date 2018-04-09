@@ -106,6 +106,8 @@ public class FragmentCulturaClass extends Fragment {
 
                             intent.putExtras(bundle);
                             startActivity(intent);
+                            getActivity().finish();
+
 
                         }
                     });
