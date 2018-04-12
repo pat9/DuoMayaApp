@@ -27,6 +27,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
         <Button
+            android:id="@+id/btnAtras"
+            android:text="A"
             android:layout_weight="2"
             android:layout_gravity="center_vertical"
             android:layout_width="match_parent"
@@ -50,9 +52,19 @@
                 android:layout_weight="2"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
+            <TextView
+                android:id="@+id/txtPalabraEs"
+                android:textSize="10pt"
+                android:textAlignment="center"
+                android:text="Perro"
+                android:layout_weight="2"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
         </LinearLayout>
         <Button
+            android:id="@+id/btnSig"
             android:layout_weight="2"
+            android:text="S"
             android:layout_gravity="center_vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />

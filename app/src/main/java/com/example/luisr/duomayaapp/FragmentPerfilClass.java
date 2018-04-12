@@ -23,6 +23,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TableLayout;
 import android.widget.TextView;
@@ -61,6 +62,7 @@ import AsyncTasks.descargarDatosAsyncTask;
 public class FragmentPerfilClass extends Fragment implements descargarDatosAsyncTask.interfacedelhilo {
     TextView txtNombre, txtPuntos;
     ImageView imgPerfil, btnFoto;
+    Button btnRanking;
     View rootView;
     String Accion = "";
     File FotoFinal;
@@ -82,6 +84,14 @@ public class FragmentPerfilClass extends Fragment implements descargarDatosAsync
         imgPerfil = rootView.findViewById(R.id.imgperfil);
         btnFoto = rootView.findViewById(R.id.btnFoto);
         bundle = getArguments();
+        btnRanking = (Button)rootView.findViewById(R.id.btnRanking);
+        btnRanking.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), RankingActivity.class);
+                startActivity(intent);
+            }
+        });
         preferences = getActivity().getSharedPreferences(MyPrefences, Context.MODE_PRIVATE);
         usuario = new Usuario();
         usuario.Codigo = preferences.getInt("Codigo", 0);

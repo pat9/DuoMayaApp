@@ -69,12 +69,14 @@ public class InicioActivity extends AppCompatActivity implements IComArticulos {
         FragmentPerfilClass fragmentPerfilClass = new FragmentPerfilClass();
         fragmentPerfilClass.setArguments(bundle);
 
+        Bundle bundle1 = getIntent().getExtras();
 
 
         if (savedInstanceState==null){
-
-            getSupportFragmentManager().beginTransaction().replace(R.id.Fragment_ContainerXML,fragmentPerfilClass).commit();
+           getSupportFragmentManager().beginTransaction().replace(R.id.Fragment_ContainerXML,fragmentPerfilClass).commit();
         }
+
+
 
     }
 

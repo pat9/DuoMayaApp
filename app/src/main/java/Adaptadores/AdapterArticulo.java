@@ -52,7 +52,6 @@ public class AdapterArticulo extends RecyclerView.Adapter<AdapterArticulo.Articu
     }
 
     @Override
-
     public ArticuloViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view= LayoutInflater.from(mcontext).inflate(R.layout.items_recycler_articulos,parent,false);
         view.setOnClickListener(this);

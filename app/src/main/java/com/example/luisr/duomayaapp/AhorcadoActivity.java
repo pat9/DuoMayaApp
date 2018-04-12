@@ -2,9 +2,11 @@ package com.example.luisr.duomayaapp;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.CountDownTimer;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.TypedValue;
@@ -211,25 +213,51 @@ public class AhorcadoActivity extends AppCompatActivity implements descargarDato
     {
         cdt.cancel();
         JuegoTerminado = true;
-        progressDialog = new ProgressDialog(this);
-        progressDialog.setTitle("Registrando victoria...");
-        progressDialog.setMessage("Espere por favor");
-        progressDialog.show();
-        Accion = 2;
-        descargarDatosAsyncTask obj = new descargarDatosAsyncTask();
-        obj.delegado = this;
-        try {
-            obj.execute(new URL("http://aprendermayaws.gear.host/AprenderMayaWS.asmx/RegistrarPuntos?CodigoUsuario="+preferences.getInt("Codigo",0)+"&Puntos=10&Descripcion=Ahorcado"));
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        }
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Gasnaste");
+        builder.setMessage("Has ganado el ahorcado");
+        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                progressDialog = new ProgressDialog(AhorcadoActivity.this);
+                progressDialog.setTitle("Registrando victoria...");
+                progressDialog.setMessage("Espere por favor");
+                progressDialog.show();
+                Accion = 2;
+                descargarDatosAsyncTask obj = new descargarDatosAsyncTask();
+                obj.delegado = AhorcadoActivity.this;
+                try {
+                    obj.execute(new URL("http://aprendermayaws.gear.host/AprenderMayaWS.asmx/RegistrarPuntos?CodigoUsuario="+preferences.getInt("Codigo",0)+"&Puntos=10&Descripcion=Ahorcado"));
+                } catch (MalformedURLException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
+        AlertDialog dialog = builder.create();
+        dialog.show();
+
     }
 
     public void JuegoPerdido()
     {
         cdt.cancel();
         JuegoTerminado = true;
-        Toast.makeText(this, "Perdiste :(", Toast.LENGTH_SHORT).show();
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Gasnaste");
+        builder.setMessage("Has ganado el ahorcado");
+        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+            }
+        });
+
+        AlertDialog dialog = builder.create();
+        dialog.show();
+
         for(int i=0; i<Palabra.length; i++)
         {
 
