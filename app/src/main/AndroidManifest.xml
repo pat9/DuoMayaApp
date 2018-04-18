@@ -42,9 +42,11 @@
         <activity android:name=".RankingActivity" />
         <activity android:name=".LeccionActivity" />
         <activity android:name=".MemoramaActivity" />
-        <activity android:name=".EditarPerfilActivity"
-            android:windowSoftInputMode="adjustResize"/>
-        <activity android:name=".QuizActivity"></activity>
+        <activity
+            android:name=".EditarPerfilActivity"
+            android:windowSoftInputMode="adjustResize" />
+        <activity android:name=".QuizActivity" />
+        <activity android:name=".CulturaActivity"></activity>
     </application>
 
 </manifest>

@@ -34,6 +34,7 @@ public class LeccionActivity extends AppCompatActivity implements descargarDatos
     ImageView imgCont;
     ArrayList<Contenido> Palabras;
     int Contador = 0;
+    MediaPlayer mediaPlayer = new MediaPlayer();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,7 +47,7 @@ public class LeccionActivity extends AppCompatActivity implements descargarDatos
         imgCont.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                MediaPlayer mediaPlayer = new MediaPlayer();
+
                 try {
                     mediaPlayer.setDataSource(Palabras.get(Contador).AudioCont);
                     mediaPlayer.prepare();
@@ -81,6 +82,8 @@ public class LeccionActivity extends AppCompatActivity implements descargarDatos
                         prgLeccion.setProgress(Contador);
                     }
                 }
+                mediaPlayer.stop();
+                mediaPlayer.reset();
                 Log.d("Contador", ""+Contador);
                 txtPalabra.setText(Palabras.get(Contador).PalabraMaya);
                 txtPalabraEs.setText(Palabras.get(Contador).PalabraEsp);
@@ -96,14 +99,16 @@ public class LeccionActivity extends AppCompatActivity implements descargarDatos
                 {
                     Contador++;
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                        prgLeccion.setProgress(Contador + 1, true);
+                        prgLeccion.setProgress(Contador, true);
                     }
                     else
                     {
-                        prgLeccion.setProgress(Contador + 1);
+                        prgLeccion.setProgress(Contador);
                     }
 
                 }
+                mediaPlayer.stop();
+                mediaPlayer.reset();
                 Log.d("Contador", ""+Contador);
                 txtPalabra.setText(Palabras.get(Contador).PalabraMaya);
                 txtPalabraEs.setText(Palabras.get(Contador).PalabraEsp);
@@ -142,7 +147,7 @@ public class LeccionActivity extends AppCompatActivity implements descargarDatos
             txtPalabra.setText(Palabras.get(0).PalabraMaya);
             txtPalabraEs.setText(Palabras.get(0).PalabraEsp);
             Picasso.with(this).load(Palabras.get(0).ImagenCont).into(imgCont);
-            prgLeccion.setMax(Palabras.size());
+            prgLeccion.setMax(Palabras.size()-1);
         } catch (JSONException e) {
             e.printStackTrace();
         }

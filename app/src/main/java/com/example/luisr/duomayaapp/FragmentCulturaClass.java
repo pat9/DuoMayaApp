@@ -98,7 +98,7 @@ public class FragmentCulturaClass extends Fragment {
                         public void onClick(View view) {
                            // iComArticulos.EnviarDatosArticulosDetalle(listadeArticulos.get(recyclerView.getChildAdapterPosition(view)));
 
-                            Intent intent = new Intent(getActivity(), DetalleCulturaActivity.class);
+                            Intent intent = new Intent(getActivity(), CulturaActivity.class);
                             Bundle bundle = new Bundle();
                             bundle.putString("Img",listadeArticulos.get(recyclerView.getChildAdapterPosition(view)).getFotoArticulo());
                             bundle.putString("Descrip",listadeArticulos.get(recyclerView.getChildAdapterPosition(view)).getDescripcion());
@@ -106,7 +106,7 @@ public class FragmentCulturaClass extends Fragment {
 
                             intent.putExtras(bundle);
                             startActivity(intent);
-                            getActivity().finish();
+
 
 
                         }

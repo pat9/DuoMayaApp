@@ -247,7 +247,7 @@ public class AhorcadoActivity extends AppCompatActivity implements descargarDato
         JuegoTerminado = true;
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Gasnaste");
+        builder.setTitle("Perdiste");
         builder.setMessage("Has perdido el ahorcado");
         builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override

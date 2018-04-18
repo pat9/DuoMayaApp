@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
@@ -49,6 +50,10 @@ public class QuizActivity extends AppCompatActivity implements descargarDatosAsy
                 {
                     JuegoGanado();
                 }
+                else
+                {
+                    JuegoPerdido();
+                }
             }
         });
         R2 = findViewById(R.id.btnResp2);
@@ -59,6 +64,10 @@ public class QuizActivity extends AppCompatActivity implements descargarDatosAsy
                 if(btn.getText().toString() == Palabra.PalabraMaya)
                 {
                     JuegoGanado();
+                }
+                else
+                {
+                    JuegoPerdido();
                 }
             }
         });
@@ -71,6 +80,10 @@ public class QuizActivity extends AppCompatActivity implements descargarDatosAsy
                 {
                     JuegoGanado();
                 }
+                else
+                {
+                    JuegoPerdido();
+                }
             }
         });
         R4 = findViewById(R.id.btnResp4);
@@ -81,6 +94,10 @@ public class QuizActivity extends AppCompatActivity implements descargarDatosAsy
                 if(btn.getText().toString() == Palabra.PalabraMaya)
                 {
                     JuegoGanado();
+                }
+                else
+                {
+                    JuegoPerdido();
                 }
             }
         });
@@ -205,6 +222,22 @@ public class QuizActivity extends AppCompatActivity implements descargarDatosAsy
                 } catch (MalformedURLException e) {
                     e.printStackTrace();
                 }
+            }
+        });
+
+        AlertDialog dialog = builder.create();
+        dialog.show();
+    }
+
+    public void JuegoPerdido()
+    {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Perdiste");
+        builder.setMessage("Has perdido.");
+        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                CerrarActivity();
             }
         });
 
