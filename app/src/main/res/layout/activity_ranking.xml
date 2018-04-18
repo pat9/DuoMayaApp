@@ -4,16 +4,19 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.luisr.duomayaapp.RankingActivity">
+    android:orientation="vertical"
+    tools:context="com.example.luisr.duomayaapp.RankingActivity"
+    android:layout_marginTop="28dp">
 
     <TextView
         android:text="Ranking"
+        android:layout_weight="5"
         android:textSize="28pt"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="match_parent" />
 
     <android.support.v7.widget.RecyclerView
-        android:layout_marginTop="28dp"
+        android:layout_weight="1"
         android:id="@+id/lstRanking"
         android:layout_width="match_parent"
         android:layout_height="match_parent"></android.support.v7.widget.RecyclerView>

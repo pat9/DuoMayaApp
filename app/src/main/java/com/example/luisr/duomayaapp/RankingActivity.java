@@ -59,9 +59,10 @@ public class RankingActivity extends AppCompatActivity implements descargarDatos
                 ranking.Puntos = object.getInt("Puntos");
                 ranking.FotoPerfil = object.getString("FotoPerfil");
                 Lista.add(ranking);
-                AdapterRanking adapterRanking = new AdapterRanking(this, Lista);
-                lstRanking.setAdapter(adapterRanking);
+
             }
+            AdapterRanking adapterRanking = new AdapterRanking(this, Lista);
+            lstRanking.setAdapter(adapterRanking);
         } catch (JSONException e) {
             e.printStackTrace();
         }

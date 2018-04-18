@@ -31,6 +31,7 @@ public class DetalleCulturaActivity extends AppCompatActivity {
 
         setSupportActionBar((Toolbar) findViewById(R.id.toolbarDetalle));
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
 
 
        Bundle bundle =getIntent().getExtras();

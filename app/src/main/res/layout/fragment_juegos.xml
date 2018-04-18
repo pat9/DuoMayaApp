@@ -1,67 +1,70 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent" android:layout_height="match_parent"
-
-    android:background="#cfcfcf"
-    >
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="36dp"
-        android:text="Juegos Ahorcado"
-        android:textSize="20sp" />
-
+    android:background="#cfcfcf">
     <RelativeLayout
-        android:id="@+id/idlayout_RecyclerJuegos"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_width="match_parent" android:layout_height="match_parent">
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/idRecyclerJuegoAhorcado"
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="36dp"
+            android:text="Juegos Ahorcado"
+            android:textSize="20sp" />
+
+        <RelativeLayout
+            android:id="@+id/idlayout_RecyclerJuegos"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/idRecyclerJuegoAhorcado"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="79dp"
+                android:orientation="horizontal">
+
+            </android.support.v7.widget.RecyclerView>
+
+        </RelativeLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/txtJuegoRompe"
+            android:text="Adivina la palabra"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@id/idlayout_RecyclerJuegos"
+            android:layout_marginTop="12dp"
+            android:textSize="20sp"
+            />
+
+        <RelativeLayout
+            android:id="@+id/idlayout_RecyclerAdivina"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginTop="79dp"
-            android:orientation="horizontal">
+            android:layout_below="@+id/txtJuegoRompe"
+            >
 
-        </android.support.v7.widget.RecyclerView>
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/lstAdivina"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="20dp"
+                android:orientation="horizontal">
 
-    </RelativeLayout>
+            </android.support.v7.widget.RecyclerView>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/txtJuegoRompe"
-        android:text="Juegos Rompecabezas"
-        android:layout_centerHorizontal="true"
-        android:layout_below="@id/idlayout_RecyclerJuegos"
-        android:layout_marginTop="12dp"
-        android:textSize="20sp"
-        />
-
-    <RelativeLayout
-        android:id="@+id/idlayout_RecyclerRompe"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/txtJuegoRompe"
-        >
-
-        <android.support.v7.widget.RecyclerView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginTop="79dp"
-            android:orientation="horizontal">
-
-        </android.support.v7.widget.RecyclerView>
+        </RelativeLayout>
 
     </RelativeLayout>
-
-</RelativeLayout>
+</ScrollView>

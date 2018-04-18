@@ -62,7 +62,7 @@ import AsyncTasks.descargarDatosAsyncTask;
 public class FragmentPerfilClass extends Fragment implements descargarDatosAsyncTask.interfacedelhilo {
     TextView txtNombre, txtPuntos;
     ImageView imgPerfil, btnFoto;
-    Button btnRanking;
+    Button btnRanking,btnEditar;
     View rootView;
     String Accion = "";
     File FotoFinal;
@@ -80,7 +80,7 @@ public class FragmentPerfilClass extends Fragment implements descargarDatosAsync
 
         rootView = inflater.inflate(R.layout.fragment_perfil,container,false);
         txtNombre = rootView.findViewById(R.id.txtNombreUsu);
-        //txtPuntos = rootView.findViewById(R.id.txtPuntos);
+        txtPuntos = rootView.findViewById(R.id.txtPuntos);
         imgPerfil = rootView.findViewById(R.id.imgperfil);
         btnFoto = rootView.findViewById(R.id.btnFoto);
         bundle = getArguments();
@@ -89,6 +89,14 @@ public class FragmentPerfilClass extends Fragment implements descargarDatosAsync
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), RankingActivity.class);
+                startActivity(intent);
+            }
+        });
+        btnEditar = rootView.findViewById(R.id.btnEditar);
+        btnEditar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), EditarPerfilActivity.class);
                 startActivity(intent);
             }
         });
@@ -312,7 +320,7 @@ public class FragmentPerfilClass extends Fragment implements descargarDatosAsync
         else
         {
             Integer Puntos = Integer.parseInt(Datos);
-            //txtPuntos.setText("Puntos: " + Puntos);
+            txtPuntos.setText("Puntos: " + Puntos);
         }
 
 

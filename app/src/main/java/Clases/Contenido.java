@@ -10,4 +10,5 @@ public class Contenido {
     public String PalabraMaya;
     public Integer CodigoLeccion;
     public String ImagenCont;
+    public String AudioCont;
 }

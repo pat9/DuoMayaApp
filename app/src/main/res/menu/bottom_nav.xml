@@ -11,7 +11,7 @@
     <item
         android:id="@+id/IdNav_Diccioanrio"
         android:icon="@drawable/ic_book"
-        android:title="Diccionario"
+        android:title="Lecciones"
         />
     <item
         android:id="@+id/IdNav_Juego"

@@ -31,10 +31,10 @@ import AsyncTasks.*;
 
 public class FragmentJuegosClass extends Fragment implements descargarDatosAsyncTask.interfacedelhilo{
 
-    ArrayList<ClsJuegoAhorcado> ListaAhorcado;
-    RecyclerView recyclerView;
+    ArrayList<ClsJuegoAhorcado> ListaAhorcado, ListaAdivina;
+    RecyclerView recyclerView, lstAdivina;
     Context context;
-
+    int Lista = 0;
 
     @Nullable
     @Override
@@ -42,10 +42,16 @@ public class FragmentJuegosClass extends Fragment implements descargarDatosAsync
 
         View view=inflater.inflate(R.layout.fragment_juegos,container,false);
         ListaAhorcado= new ArrayList<>();
+        ListaAdivina = new ArrayList<>();
         recyclerView=(RecyclerView)view.findViewById(R.id.idRecyclerJuegoAhorcado);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.HORIZONTAL,false));
 
         recyclerView.setHasFixedSize(true);
+
+        lstAdivina=(RecyclerView)view.findViewById(R.id.lstAdivina);
+        lstAdivina.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.HORIZONTAL,false));
+
+        lstAdivina.setHasFixedSize(true);
 
         GenerarLista();
 
@@ -75,20 +81,31 @@ public class FragmentJuegosClass extends Fragment implements descargarDatosAsync
             {
                 JSONObject object = array.getJSONObject(i);
                 ListaAhorcado.add(new ClsJuegoAhorcado(object.getInt("CodigoLeccion"), "Ahorcado",object.getString("Nombre"), R.mipmap.ic_launcher));
+                ListaAdivina.add(new ClsJuegoAhorcado(object.getInt("CodigoLeccion"), "Adivna",object.getString("Nombre"), R.mipmap.ic_launcher));
             }
 
             AdapterJuegoAhorcado adap= new AdapterJuegoAhorcado(getContext(), ListaAhorcado, new CustomItemClickListener() {
                 @Override
                 public void OnItemClick(View v, int Position) {
-                    Toast.makeText(getActivity(), Position +  "", Toast.LENGTH_SHORT).show();
                     Intent itent = new Intent(getActivity(), AhorcadoActivity.class);
+                    itent.putExtra("ID", ListaAhorcado.get(Position).getCodigo());
                     startActivity(itent);
                     getActivity().finish();
                 }
             });
 
-            recyclerView.setAdapter(adap);
+            AdapterJuegoAhorcado adap1 = new AdapterJuegoAhorcado(getContext(), ListaAdivina, new CustomItemClickListener() {
+                @Override
+                public void OnItemClick(View v, int Position) {
+                    Intent itent = new Intent(getActivity(), QuizActivity.class);
+                    itent.putExtra("ID", ListaAhorcado.get(Position).getCodigo());
+                    startActivity(itent);
+                    getActivity().finish();
+                }
+            } );
 
+            recyclerView.setAdapter(adap);
+            lstAdivina.setAdapter(adap1);
         } catch (JSONException e) {
             e.printStackTrace();
         }

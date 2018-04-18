@@ -108,7 +108,8 @@ public class AhorcadoActivity extends AppCompatActivity implements descargarDato
 
     public void ObtenerPalabra()
     {
-        String URL="http://aprendermayaws.gearhostpreview.com/AprenderMayaWS.asmx/ListaPalabras";
+        Bundle bundle = getIntent().getExtras();
+        String URL="http://aprendermayaws.gearhostpreview.com/AprenderMayaWS.asmx/ListaPalabrasLeccion?ID="+bundle.getInt("ID");
         descargarDatosAsyncTask obj = new descargarDatosAsyncTask();
         obj.delegado=this;
         try {
@@ -247,11 +248,11 @@ public class AhorcadoActivity extends AppCompatActivity implements descargarDato
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Gasnaste");
-        builder.setMessage("Has ganado el ahorcado");
+        builder.setMessage("Has perdido el ahorcado");
         builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-
+                CerrarActivity();
             }
         });
 
@@ -265,7 +266,7 @@ public class AhorcadoActivity extends AppCompatActivity implements descargarDato
             Text.setText(""+Palabra[i]);
         }
         Habilitar(false);
-        CerrarActivity();
+
     }
 
     public void CerrarActivity()

@@ -61,7 +61,18 @@ public class AdapterArticulo extends RecyclerView.Adapter<AdapterArticulo.Articu
     @Override
     public void onBindViewHolder(ArticuloViewHolder holder, int position) {
         holder.txtTitulo.setText(ListaArticulos.get(position).getTitulo());
-        holder.txtDescripcion.setText(ListaArticulos.get(position).getDescripcion());
+        String desc="";
+        if(ListaArticulos.get(position).getDescripcion().length() >= 25)
+        {
+            desc=ListaArticulos.get(position).getDescripcion().substring(0,25);
+        }
+        else
+        {
+            desc=ListaArticulos.get(position).getDescripcion();
+        }
+
+        holder.txtDescripcion.setText(desc);
+        holder.txtCont.setText("");
         Picasso.with(mcontext)
                 .load(ListaArticulos.get(position).getFotoArticulo())
                 .into(holder.ImgAticulo);
@@ -77,7 +88,7 @@ public class AdapterArticulo extends RecyclerView.Adapter<AdapterArticulo.Articu
 
     public class ArticuloViewHolder extends RecyclerView.ViewHolder {
 
-        TextView txtTitulo,txtDescripcion;
+        TextView txtTitulo,txtDescripcion, txtCont;
         ImageView ImgAticulo;
 
 
@@ -87,7 +98,7 @@ public class AdapterArticulo extends RecyclerView.Adapter<AdapterArticulo.Articu
             txtTitulo=(TextView)itemView.findViewById(R.id.txtTitulo);
             txtDescripcion=(TextView)itemView.findViewById(R.id.txtDescrip);
             ImgAticulo=(ImageView)itemView.findViewById(R.id.imgRecyclerArticulo);
-
+            txtCont = itemView.findViewById(R.id.txtCont);
 
         }
     }
